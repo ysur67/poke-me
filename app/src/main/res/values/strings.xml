@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PokeMe</string>
+    <string name="poke_placeholder">Write your poke message here</string>
+    <string name="poke_user_button_text">Poke user</string>
 </resources>
