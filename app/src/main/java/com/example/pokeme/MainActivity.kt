@@ -3,7 +3,7 @@ package com.example.pokeme
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.example.pokeme.data.models.Account
+import com.example.pokeme.data.models.User
 import com.example.pokeme.data.models.Message
 import com.example.pokeme.databinding.ActivityMainBinding
 import com.example.pokeme.domain.MessageViewModel
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         binding.sendMessageButton.setOnClickListener{
-            val account = Account("Vasya", 1)
+            val account = User("Vasya", 1, "sdfsdf@dsfsd.com")
             val messageText = binding.editMessageText.text.toString()
             val message = Message(messageText, account)
             messageViewModel.sendMessage(message, account)

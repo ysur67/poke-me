@@ -2,4 +2,8 @@
     <string name="app_name">PokeMe</string>
     <string name="poke_placeholder">Write your poke message here</string>
     <string name="poke_user_button_text">Poke user</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="password_repeat">Password repeat</string>
+    <string name="create_account">Create account</string>
 </resources>
