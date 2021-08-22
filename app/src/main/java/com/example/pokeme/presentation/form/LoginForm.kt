@@ -3,7 +3,7 @@ package com.example.pokeme.presentation.form
 import android.widget.EditText
 import com.example.pokeme.repository.UserRepository
 
-class LoginForm(
+class LoginForm (
     private val email: EditText,
     private val password: EditText
 ) : BaseForm() {

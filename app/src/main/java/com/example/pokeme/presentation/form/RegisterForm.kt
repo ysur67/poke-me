@@ -23,7 +23,7 @@ class RegisterForm(
         if (passwordRepeat.text.isEmpty()) {
             addError(passwordRepeat, "Повторите пароль"); return
         }
-        if (password.text.toString() == passwordRepeat.text.toString())
+        if (password.text.toString() != passwordRepeat.text.toString())
             addError(passwordRepeat, "Пароли не совпадают")
         if (password.text.toString().length <= Const.USER_PASSWORD_LENGTH)
             addError(password, "Длина пароля меньше ${Const.USER_PASSWORD_LENGTH + 1}")
