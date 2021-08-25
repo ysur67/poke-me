@@ -6,6 +6,8 @@ import androidx.activity.viewModels
 import com.example.pokeme.databinding.ActivityLoginBinding
 import com.example.pokeme.domain.UserViewModel
 import com.example.pokeme.presentation.form.LoginForm
+import com.example.pokeme.utils.activity.makeToast
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 
 class LoginActivity : BaseRegisterActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -33,5 +35,13 @@ class LoginActivity : BaseRegisterActivity() {
                 startActivity(this)
             }
         }
+
+        userViewModel.exception.observe(this, {
+            when (it) {
+                is FirebaseAuthInvalidCredentialsException -> {
+                    makeToast("Проверьте введенные данные")
+                }
+            }
+        })
     }
 }

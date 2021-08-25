@@ -2,12 +2,10 @@ package com.example.pokeme.presentation.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import com.example.pokeme.data.models.User
 import com.example.pokeme.data.models.Message
 import com.example.pokeme.databinding.ActivityMainBinding
 import com.example.pokeme.domain.MessageViewModel
-import com.google.firebase.FirebaseApp
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
