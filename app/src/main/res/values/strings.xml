@@ -6,4 +6,8 @@
     <string name="password">Password</string>
     <string name="password_repeat">Password repeat</string>
     <string name="create_account">Create account</string>
+    <string name="login_from_register_text">Уже есть аккаунт?</string>
+    <string name="login_link">Войти</string>
+    <string name="register_account_title">Еще нет аккаунта?</string>
+    <string name="create_account_title">Создать</string>
 </resources>

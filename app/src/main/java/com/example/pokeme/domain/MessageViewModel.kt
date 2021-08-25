@@ -7,6 +7,7 @@ import com.example.pokeme.data.models.User
 import com.example.pokeme.data.models.Message
 import com.example.pokeme.repository.MessagesRepository
 import com.example.pokeme.repository.OnDataReadyCallback
+import com.example.pokeme.repository.Result
 
 
 class MessageViewModel : ViewModel() {
@@ -19,10 +20,11 @@ class MessageViewModel : ViewModel() {
     fun sendMessage(content: Message, user: User) {
         _isSending.postValue(true)
         val callback = object : OnDataReadyCallback{
-            override fun onDataReady() {
+            override fun onDataReady(result: Result<User>) {
                 _isSending.postValue(false)
             }
         }
-        messageRepo.send(user.id, content, callback)
+        messageRepo.send(1, content, callback)
     }
+
 }

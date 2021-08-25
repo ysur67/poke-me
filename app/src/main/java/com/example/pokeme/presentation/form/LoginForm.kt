@@ -1,7 +1,6 @@
 package com.example.pokeme.presentation.form
 
 import android.widget.EditText
-import com.example.pokeme.repository.UserRepository
 
 class LoginForm (
     private val email: EditText,

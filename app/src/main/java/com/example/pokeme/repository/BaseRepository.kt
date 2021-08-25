@@ -1,5 +1,7 @@
 package com.example.pokeme.repository
 
+import com.example.pokeme.data.models.User
+
 
 interface IRepository {
     fun init()
@@ -10,6 +12,6 @@ interface IRequestResult {
 }
 
 interface OnDataReadyCallback {
-    fun onDataReady()
+    fun onDataReady(result: Result<User>)
 
 }

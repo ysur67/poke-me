@@ -21,7 +21,7 @@ class MessagesRepository : IRepository {
         GlobalScope.launch {
             delay(2000L)
             Log.w(DEBUG_CODE, "Отправлено сообщение пользователю $userId")
-            callback.onDataReady()
+//            callback.onDataReady()
         }
     }
 }
