@@ -22,11 +22,12 @@ class RegisterActivity : AppCompatActivity() {
             val form = RegisterForm(
                 binding.editEmail, binding.editPassword, binding.editPasswordRepeat
             )
-            form.validate()
-            if (!form.isValid) {
-                runOnUiThread{ displayErrors(form.errors) }
-                return@setOnClickListener
-            }
+            userViewModel.isFormValid(form)
+//            form.validate()
+//            if (!form.isValid) {
+//                runOnUiThread{ displayErrors(form.errors) }
+//                return@setOnClickListener
+//            }
             userViewModel.createUser(binding.editEmail.text.toString(),
                 binding.editPassword.text.toString())
         }

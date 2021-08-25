@@ -7,7 +7,9 @@ class LoginForm (
     private val email: EditText,
     private val password: EditText
 ) : BaseForm() {
-    private val userRepo = UserRepository.instance
+
+    val userEmail: String
+    get() = email.text.toString()
 
     override fun validate() {
         if (email.text.isEmpty()){
@@ -16,8 +18,5 @@ class LoginForm (
         if (password.text.isEmpty()) {
             addError(password, "Заполните поле"); return
         }
-
-        if (!userRepo.isUserExists(email.text.toString()))
-            addError(email, "Аккаунта с таким почтовым адресом не существует")
     }
 }

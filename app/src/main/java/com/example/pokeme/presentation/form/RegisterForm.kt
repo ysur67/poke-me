@@ -1,7 +1,6 @@
 package com.example.pokeme.presentation.form
 
 import android.widget.EditText
-import com.example.pokeme.repository.UserRepository
 import com.example.pokeme.utils.Const
 
 
@@ -11,7 +10,8 @@ class RegisterForm(
     private val passwordRepeat: EditText
 ) : BaseForm() {
 
-    private val userRepo = UserRepository.instance
+    val userEmail: String
+        get() = email.text.toString()
 
     override fun validate() {
         if (email.text.isEmpty()) {
@@ -29,8 +29,5 @@ class RegisterForm(
             addError(password, "Длина пароля меньше ${Const.USER_PASSWORD_LENGTH + 1}")
         if (passwordRepeat.text.toString().length <= Const.USER_PASSWORD_LENGTH)
             addError(password, "Длина пароля меньше ${Const.USER_PASSWORD_LENGTH + 1}")
-
-        if (userRepo.isUserExists(email.text.toString()))
-            addError(email, "Аккаунт с таким почтовым адресом уже существует")
     }
 }
