@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.activity.auth.RegisterActivity">
+    tools:context=".presentation.fragment.auth.RegisterFragment"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -12,11 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:orientation="vertical"
-        android:padding="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="20dp" >
 
         <TextView
             android:id="@+id/emailTextView"
@@ -43,11 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        android:padding="20dp" >
 
         <TextView
             android:id="@+id/passwordTextView"
@@ -74,11 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        android:padding="20dp" >
 
         <TextView
             android:id="@+id/passwordRepeatTextView"
@@ -104,36 +92,8 @@
         android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
-        android:text="@string/create_account"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        android:layout_gravity="center|center_horizontal"
+        android:layout_marginTop="20sp"
+        android:text="@string/create_account" />
 
-    <TextView
-        android:id="@+id/loginHyperlink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/login_link"
-        android:textColor="@color/purple_700"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.163"
-        app:layout_constraintStart_toEndOf="@+id/loginHyperlinkTitle"
-        app:layout_constraintTop_toBottomOf="@+id/register" />
-
-    <TextView
-        android:id="@+id/loginHyperlinkTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/login_from_register_text"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.388"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

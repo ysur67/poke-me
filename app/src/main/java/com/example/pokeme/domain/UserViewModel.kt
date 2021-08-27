@@ -1,6 +1,5 @@
 package com.example.pokeme.domain
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +10,6 @@ import com.example.pokeme.repository.OnDataReadyCallback
 import com.example.pokeme.repository.Result
 import com.example.pokeme.repository.UserRepository
 import java.lang.Exception
-import java.nio.file.attribute.UserPrincipal
 
 class UserViewModel: ViewModel() {
     companion object {
@@ -21,9 +19,13 @@ class UserViewModel: ViewModel() {
     private val userRepo: UserRepository = UserRepository.instance
     private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     private lateinit var _currentUser: MutableLiveData<User>
+    private val _currentException: MutableLiveData<Exception> = MutableLiveData(Exception())
 
     val isLoading: LiveData<Boolean>
         get() = _isLoading
+
+    val exception: LiveData<Exception>
+        get() = _currentException
 
     private val userAuthCallback = object : OnDataReadyCallback {
         override fun onDataReady(result: Result<User>) {
@@ -34,7 +36,7 @@ class UserViewModel: ViewModel() {
                 }
                 is Result.Error -> {
                     val exception = result.ex as Exception
-                    throw exception
+                    _currentException.postValue(exception)
                 }
             }
             _isLoading.postValue(false)

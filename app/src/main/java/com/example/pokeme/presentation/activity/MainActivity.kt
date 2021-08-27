@@ -3,35 +3,55 @@ package com.example.pokeme.presentation.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.example.pokeme.data.models.User
-import com.example.pokeme.data.models.Message
+import androidx.fragment.app.Fragment
+import com.example.pokeme.R
 import com.example.pokeme.databinding.ActivityMainBinding
-import com.example.pokeme.domain.MessageViewModel
-import com.google.firebase.FirebaseApp
+import com.example.pokeme.domain.UserViewModel
+import com.example.pokeme.presentation.fragment.auth.LoginFragment
+import com.example.pokeme.presentation.fragment.auth.RegisterFragment
+import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var messageViewModel: MessageViewModel
+    private val userViewModel: UserViewModel by viewModels()
+
+    private val tabSelectedListener = object : TabLayout.OnTabSelectedListener {
+        override fun onTabSelected(tab: TabLayout.Tab?) {
+            when (tab?.contentDescription) {
+                resources.getString(R.string.loginTabItem) -> {
+                    val loginFragment = LoginFragment.newInstance()
+                    changeFragment(loginFragment)
+                }
+                resources.getString(R.string.registerTabItem) -> {
+                    val registerFragment = RegisterFragment.newInstance()
+                    changeFragment(registerFragment)
+                }
+            }
+        }
+
+        override fun onTabUnselected(tab: TabLayout.Tab?) {
+        }
+
+        override fun onTabReselected(tab: TabLayout.Tab?) {
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-        messageViewModel.isSending.observe(this, { value: Boolean ->
-            if (value) {
-                runOnUiThread{ binding.sendMessageButton.isEnabled = false }
-            } else {
-                runOnUiThread{ binding.sendMessageButton.isEnabled = true }
-            }
+        binding.tabLayout.addOnTabSelectedListener(tabSelectedListener)
+        userViewModel.isLoading.observe(this, {
+            binding.tabLayout.isEnabled = !it
         })
+    }
 
-        binding.sendMessageButton.setOnClickListener{
-            val account = User("Vasya", "1", "sdfsdf@dsfsd.com")
-            val messageText = binding.editMessageText.text.toString()
-            val message = Message(messageText, account)
-            messageViewModel.sendMessage(message, account)
+    private fun changeFragment(new: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(binding.authFrameLayout.id, new)
+            commit()
         }
     }
 }

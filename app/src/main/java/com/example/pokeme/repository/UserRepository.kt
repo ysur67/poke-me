@@ -1,8 +1,6 @@
 package com.example.pokeme.repository
 
-import android.util.Log
 import com.example.pokeme.data.models.User
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
@@ -15,7 +13,8 @@ class UserRepository : IRepository {
 
     private val connection: FirebaseAuth = FirebaseAuth.getInstance()
 
-    override fun init() {}
+    override fun init() {
+    }
 
     fun register(email: String, password: String, callback: OnDataReadyCallback) {
         val task = connection.createUserWithEmailAndPassword(email, password)
