@@ -9,6 +9,7 @@ import com.example.pokeme.presentation.form.RegisterForm
 import com.example.pokeme.repository.OnDataReadyCallback
 import com.example.pokeme.repository.Result
 import com.example.pokeme.repository.UserRepository
+import com.google.firebase.auth.FirebaseUser
 import java.lang.Exception
 
 class UserViewModel: ViewModel() {
@@ -18,8 +19,8 @@ class UserViewModel: ViewModel() {
 
     private val userRepo: UserRepository = UserRepository.instance
     private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
-    private lateinit var _currentUser: MutableLiveData<User>
-    private val _currentException: MutableLiveData<Exception> = MutableLiveData(Exception())
+    private val _currentUser: MutableLiveData<FirebaseUser> = MutableLiveData(userRepo.user)
+    private val _currentException: MutableLiveData<Exception> = MutableLiveData(null)
 
     val isLoading: LiveData<Boolean>
         get() = _isLoading
@@ -27,12 +28,15 @@ class UserViewModel: ViewModel() {
     val exception: LiveData<Exception>
         get() = _currentException
 
+    val user: LiveData<FirebaseUser>
+        get() = _currentUser
+
     private val userAuthCallback = object : OnDataReadyCallback {
-        override fun onDataReady(result: Result<User>) {
+        override fun onDataReady(result: Result<FirebaseUser>) {
             when (result) {
                 is Result.Success -> {
-                    val user = result.data as User
-                    _currentUser = MutableLiveData(user)
+                    val user = result.data as FirebaseUser
+                    _currentUser.postValue(user)
                 }
                 is Result.Error -> {
                     val exception = result.ex as Exception
