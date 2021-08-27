@@ -11,4 +11,6 @@
     <string name="friend_photo">friend_photo</string>
     <string name="friend_name">Friend name</string>
     <string name="login_account_title">Войти в аккаунт</string>
+    <string name="registerTabItem">register</string>
+    <string name="loginTabItem">loginTabItem</string>
 </resources>
