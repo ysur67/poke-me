@@ -2,14 +2,14 @@ package com.example.pokeme.presentation.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.pokeme.data.models.User
-import com.example.pokeme.data.models.Message
+import androidx.fragment.app.Fragment
 import com.example.pokeme.databinding.ActivityMainBinding
 import com.example.pokeme.domain.MessageViewModel
+import com.example.pokeme.presentation.fragment.auth.LoginFragment
+import com.example.pokeme.presentation.fragment.auth.RegisterFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var messageViewModel: MessageViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,19 +17,20 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        messageViewModel.isSending.observe(this, { value: Boolean ->
-            if (value) {
-                runOnUiThread{ binding.sendMessageButton.isEnabled = false }
-            } else {
-                runOnUiThread{ binding.sendMessageButton.isEnabled = true }
-            }
-        })
+        binding.checkoutLogin.setOnClickListener{
+            val loginFragment = LoginFragment.newInstance()
+            changeFragment(loginFragment)
+        }
+        binding.checkoutRegister.setOnClickListener{
+            val registerFragment = RegisterFragment.newInstance()
+            changeFragment(registerFragment)
+        }
+    }
 
-        binding.sendMessageButton.setOnClickListener{
-            val account = User("Vasya", "1", "sdfsdf@dsfsd.com")
-            val messageText = binding.editMessageText.text.toString()
-            val message = Message(messageText, account)
-            messageViewModel.sendMessage(message, account)
+    private fun changeFragment(new: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(binding.authFrameLayout.id, new)
+            commit()
         }
     }
 }
