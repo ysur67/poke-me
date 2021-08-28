@@ -19,12 +19,7 @@ class MessageViewModel : ViewModel() {
 
     fun sendMessage(content: Message, user: User) {
         _isSending.postValue(true)
-        val callback = object : OnDataReadyCallback{
-            override fun onDataReady(result: Result<User>) {
-                _isSending.postValue(false)
-            }
-        }
-        messageRepo.send(1, content, callback)
+        _isSending.postValue(false)
     }
 
 }

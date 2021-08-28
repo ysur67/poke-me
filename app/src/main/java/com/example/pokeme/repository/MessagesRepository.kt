@@ -5,16 +5,10 @@ import com.example.pokeme.data.models.Message
 import kotlinx.coroutines.*
 
 
-class MessagesRepository : IRepository {
+class MessagesRepository {
     companion object {
         val instance: MessagesRepository = MessagesRepository()
         private const val DEBUG_CODE = "MSG_REPO"
-    }
-
-    private lateinit var connection: String
-
-    override fun init() {
-        connection = "ABC"
     }
 
     fun send(userId: Int, message: Message, callback: OnDataReadyCallback) {

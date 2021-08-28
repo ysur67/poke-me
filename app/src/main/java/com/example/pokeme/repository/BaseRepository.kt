@@ -1,17 +1,7 @@
 package com.example.pokeme.repository
 
-import com.example.pokeme.data.models.User
-
-
-interface IRepository {
-    fun init()
-}
-
-interface IRequestResult {
-    val resultCode: Int
-}
+import com.google.firebase.auth.FirebaseUser
 
 interface OnDataReadyCallback {
-    fun onDataReady(result: Result<User>)
-
+    fun onDataReady(result: Result<FirebaseUser>)
 }
