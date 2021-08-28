@@ -57,17 +57,20 @@ class UserViewModel: ViewModel() {
         userRepo.login(email, password, userAuthCallback)
     }
 
+    fun logout() {
+        _isLoading.postValue(true)
+        userRepo.logout()
+        _isLoading.postValue(false)
+        _currentUser.postValue(null)
+    }
+
     fun isFormValid(form: RegisterForm) : Boolean {
         form.validate()
-        return form.isValid && !isUserExists(form.userEmail)
+        return form.isValid
     }
 
     fun isFormValid(form: LoginForm) : Boolean {
         form.validate()
-        return form.isValid && !isUserExists(form.userEmail)
-    }
-
-    private fun isUserExists(email: String) : Boolean {
-        return false
+        return form.isValid
     }
 }

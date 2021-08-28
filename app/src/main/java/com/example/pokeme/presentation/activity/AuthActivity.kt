@@ -11,6 +11,7 @@ import com.example.pokeme.domain.UserViewModel
 import com.example.pokeme.presentation.fragment.auth.LoginFragment
 import com.example.pokeme.presentation.fragment.auth.RegisterFragment
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -53,6 +54,13 @@ class AuthActivity : AppCompatActivity() {
                     startActivity(this)
                 }
                 finish()
+            }
+        })
+        userViewModel.exception.observe(this, {
+            when (it) {
+                is FirebaseAuthInvalidCredentialsException -> {
+
+                }
             }
         })
     }

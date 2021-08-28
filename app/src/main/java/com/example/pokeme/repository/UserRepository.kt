@@ -38,4 +38,8 @@ class UserRepository {
             callback.onDataReady(Result.Error(it))
         }
     }
+
+    fun logout() {
+        connection.signOut()
+    }
 }

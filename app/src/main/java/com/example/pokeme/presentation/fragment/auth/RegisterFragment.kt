@@ -5,12 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.example.pokeme.databinding.FragmentRegisterBinding
 import com.example.pokeme.domain.UserViewModel
 import com.example.pokeme.presentation.form.RegisterForm
-import com.example.pokeme.utils.fragment.makeSnack
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 
 
 /**
@@ -21,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 class RegisterFragment : BaseAuthFragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
-    private val userViewModel: UserViewModel by viewModels()
+    private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,14 +48,6 @@ class RegisterFragment : BaseAuthFragment() {
 
         userViewModel.isLoading.observe(viewLifecycleOwner, {
             binding.register.isEnabled = !it
-        })
-
-        userViewModel.exception.observe(viewLifecycleOwner, {
-            when (it) {
-                is FirebaseAuthInvalidCredentialsException -> {
-                    makeSnack("Проверьте введенные данные")
-                }
-            }
         })
     }
 
