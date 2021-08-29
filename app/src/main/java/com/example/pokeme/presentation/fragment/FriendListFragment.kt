@@ -1,23 +1,25 @@
-package com.example.pokeme
+package com.example.pokeme.presentation.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.pokeme.R
 
 
 /**
  * A simple [Fragment] subclass.
- * Use the [PokesFragment.newInstance] factory method to
+ * Use the [FriendListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class PokesFragment : Fragment() {
+class FriendListFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_pokes, container, false)
+        return inflater.inflate(R.layout.fragment_friend_list, container, false)
     }
 
     companion object {
@@ -25,9 +27,9 @@ class PokesFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment.
          *
-         * @return A new instance of fragment PokesFragment.
+         * @return A new instance of fragment FriendListFragment.
          */
         @JvmStatic
-        fun newInstance() = PokesFragment()
+        fun newInstance() = FriendListFragment()
     }
 }

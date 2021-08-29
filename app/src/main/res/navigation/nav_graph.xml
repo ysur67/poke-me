@@ -11,12 +11,12 @@
         tools:layout="@layout/fragment_profile_settings" />
     <fragment
         android:id="@+id/pokesFragment"
-        android:name="com.example.pokeme.PokesFragment"
+        android:name="com.example.pokeme.presentation.fragment.PokesFragment"
         android:label="fragment_pokes"
         tools:layout="@layout/fragment_pokes" />
     <fragment
         android:id="@+id/friendListFragment"
-        android:name="com.example.pokeme.FriendListFragment"
+        android:name="com.example.pokeme.presentation.fragment.FriendListFragment"
         android:label="fragment_friend_list"
         tools:layout="@layout/fragment_friend_list" />
 </navigation>

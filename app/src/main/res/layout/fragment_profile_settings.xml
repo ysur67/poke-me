@@ -22,7 +22,7 @@
             tools:src="@tools:sample/avatars" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/editUsername"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -45,17 +45,21 @@
         android:paddingStart="25dp"
         android:paddingEnd="25sp">
 
-        <Button
-            android:id="@+id/button2"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/reset" />
+            android:background="@color/red"
+            android:textColor="@color/white"
+            android:text="@string/reset"
+            android:layout_marginBottom="15dp"/>
 
-        <Button
-            android:id="@+id/button"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/teal_200"
+            android:background="@color/green"
+            android:textColor="@color/white"
             android:text="@string/save" />
 
     </LinearLayout>

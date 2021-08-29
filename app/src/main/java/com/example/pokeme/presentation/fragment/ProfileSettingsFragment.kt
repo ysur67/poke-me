@@ -5,9 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.animation.core.withInfiniteAnimationFrameMillis
-import com.example.pokeme.R
+import androidx.fragment.app.activityViewModels
+import com.example.pokeme.data.models.Account
 import com.example.pokeme.databinding.FragmentProfileSettingsBinding
+import com.example.pokeme.domain.AccountViewModel
 
 
 /**
@@ -18,6 +19,8 @@ import com.example.pokeme.databinding.FragmentProfileSettingsBinding
 class ProfileSettingsFragment : Fragment() {
     private var _binding: FragmentProfileSettingsBinding? = null
     private val binding get() = _binding!!
+
+    private val accountViewModel: AccountViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +33,21 @@ class ProfileSettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUsername(accountViewModel.account.value?.username)
+        binding.reset.setOnClickListener{
+            setUsername(accountViewModel.account.value?.username)
+        }
+        binding.save.setOnClickListener{
+            val newAccount = Account(
+                accountViewModel.account.value!!.email,
+                binding.editUsername.text.toString()
+            )
+            accountViewModel.updateAccount(newAccount)
+        }
+    }
 
+    private fun setUsername(value: String?) {
+        binding.editUsername.setText(value ?: "")
     }
 
     companion object {

@@ -8,12 +8,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.pokeme.R
 import com.example.pokeme.databinding.ActivityMainBinding
+import com.example.pokeme.domain.AccountViewModel
 import com.example.pokeme.domain.UserViewModel
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val userViewModel: UserViewModel by viewModels()
+    private val accountViewModel: AccountViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,5 +33,7 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
         })
+        val currentUser = userViewModel.user.value ?: return
+        accountViewModel.updateAccountByUser(currentUser)
     }
 }

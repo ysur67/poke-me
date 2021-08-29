@@ -14,10 +14,8 @@ class UserRepository {
     companion object {
         val instance = UserRepository()
         private const val DEBUG_CODE: String = "USER_REPO"
-        private const val ACCOUNT_COLLECTION: String = "accounts"
     }
     private val authService: FirebaseAuth = FirebaseAuth.getInstance()
-    private val firestore: FirebaseFirestore = Firebase.firestore
 
     val user: FirebaseUser?
         get() = authService.currentUser
@@ -27,7 +25,6 @@ class UserRepository {
         task.addOnSuccessListener {
             val user = it.user
             if (user != null) {
-                updateOrCreateAccount(user)
                 callback.onDataReady(Result.Success(user))
             }
         }
@@ -41,7 +38,6 @@ class UserRepository {
         task.addOnSuccessListener {
             val user = it.user
             if (user != null) {
-                updateOrCreateAccount(user)
                 callback.onDataReady(Result.Success(user))
             }
         }
@@ -52,11 +48,5 @@ class UserRepository {
 
     fun logout() {
         authService.signOut()
-    }
-
-    private fun updateOrCreateAccount(user: FirebaseUser) {
-        val account = Account(user.email!!, Account.getDefaultUsername(user.email!!))
-        firestore.collection(ACCOUNT_COLLECTION)
-            .document(account.email)
     }
 }
