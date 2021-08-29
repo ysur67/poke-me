@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.example.pokeme.R
+import com.example.pokeme.databinding.ActivityAuthBinding
 import com.example.pokeme.databinding.ActivityMainBinding
 import com.example.pokeme.domain.UserViewModel
 import com.example.pokeme.presentation.fragment.auth.LoginFragment
@@ -14,7 +15,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 
 class AuthActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityAuthBinding
     private val userViewModel: UserViewModel by viewModels()
 
     private val tabSelectedListener = object : TabLayout.OnTabSelectedListener {
@@ -41,7 +42,7 @@ class AuthActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityAuthBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         binding.tabLayout.addOnTabSelectedListener(tabSelectedListener)

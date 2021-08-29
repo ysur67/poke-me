@@ -5,16 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import com.example.pokeme.databinding.ActivityFriendsListBinding
+import com.example.pokeme.databinding.ActivityMainBinding
 import com.example.pokeme.domain.UserViewModel
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityFriendsListBinding
+    private lateinit var binding: ActivityMainBinding
     private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFriendsListBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.floatingActionButton2.setOnClickListener{
             userViewModel.logout()

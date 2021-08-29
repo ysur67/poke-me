@@ -58,6 +58,5 @@ class UserRepository {
         val account = Account(user.email!!, Account.getDefaultUsername(user.email!!))
         firestore.collection(ACCOUNT_COLLECTION)
             .document(account.email)
-            .set(account.toHashMap())
     }
 }
