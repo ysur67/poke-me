@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
+import com.example.pokeme.R
 import com.example.pokeme.databinding.ActivityMainBinding
 import com.example.pokeme.domain.UserViewModel
 
@@ -16,8 +18,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.floatingActionButton2.setOnClickListener{
-            userViewModel.logout()
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.friends_menu_item -> {
+
+                }
+                R.id.pokes_menu_item -> {
+
+                }
+                R.id.profile_menu_item -> {
+
+                }
+            }
+            true
         }
         userViewModel.user.observe(this, {
             if (it == null) {
@@ -27,5 +40,9 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
         })
+    }
+
+    private fun changeFragment(new: Fragment) {
+
     }
 }
