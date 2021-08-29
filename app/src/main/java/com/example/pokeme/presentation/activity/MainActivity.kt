@@ -32,13 +32,4 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
-//    private fun changeFragment(new: Fragment) {
-//        runOnUiThread{
-//            supportFragmentManager.beginTransaction().apply {
-//                replace(binding.mainFrameLayout.id, new)
-//                commit()
-//            }
-//        }
-//    }
 }
