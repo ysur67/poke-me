@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseUser
 class AccountViewModel : ViewModel() {
     private val accountRepo = AccountRepository.instance
     private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
-    private val _currentAccount: MutableLiveData<Account> = MutableLiveData(null)
+    private var _currentAccount: MutableLiveData<Account> = MutableLiveData(null)
 
     val isLoading: LiveData<Boolean>
         get() = _isLoading
@@ -20,7 +20,7 @@ class AccountViewModel : ViewModel() {
 
     fun updateAccountByUser(user: FirebaseUser) {
         _isLoading.postValue(true)
-        _currentAccount.postValue(accountRepo.getOrCreateAccount(user))
+        _currentAccount = accountRepo.getOrCreateAccount(user) as MutableLiveData<Account>
         _isLoading.postValue(false)
     }
 

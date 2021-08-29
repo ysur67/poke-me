@@ -3,6 +3,8 @@ package com.example.pokeme.presentation.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -35,5 +37,19 @@ class MainActivity : AppCompatActivity() {
         })
         val currentUser = userViewModel.user.value ?: return
         accountViewModel.updateAccountByUser(currentUser)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.options_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.logoutOption -> {
+                userViewModel.logout()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
