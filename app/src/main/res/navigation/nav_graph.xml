@@ -2,4 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph" />
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/profileSettingsFragment">
+    <fragment
+        android:id="@+id/profileSettingsFragment"
+        android:name="com.example.pokeme.presentation.fragment.ProfileSettingsFragment"
+        android:label="fragment_profile_settings"
+        tools:layout="@layout/fragment_profile_settings" />
+    <fragment
+        android:id="@+id/pokesFragment"
+        android:name="com.example.pokeme.PokesFragment"
+        android:label="fragment_pokes"
+        tools:layout="@layout/fragment_pokes" />
+    <fragment
+        android:id="@+id/friendListFragment"
+        android:name="com.example.pokeme.FriendListFragment"
+        android:label="fragment_friend_list"
+        tools:layout="@layout/fragment_friend_list" />
+</navigation>

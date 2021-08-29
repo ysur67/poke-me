@@ -3,17 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/friends_menu_item"
+        android:id="@+id/friendListFragment"
         android:title="@string/friends_item_title"
         android:icon="@drawable/person_outline"
         android:orderInCategory="1"/>
     <item
-        android:id="@+id/pokes_menu_item"
+        android:id="@+id/pokesFragment"
         android:title="@string/pokes_menu_item"
         android:icon="@drawable/comment"
         android:orderInCategory="2"/>
     <item
-        android:id="@+id/profile_menu_item"
+        android:id="@+id/profileSettingsFragment"
         android:title="@string/profile_menu_item"
         android:icon="@drawable/gear"
         android:orderInCategory="3"/>
