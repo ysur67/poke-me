@@ -12,21 +12,13 @@ import com.example.pokeme.repository.UserRepository
 import com.google.firebase.auth.FirebaseUser
 import java.lang.Exception
 
-class UserViewModel: ViewModel() {
+class UserViewModel: BaseViewModel() {
     companion object {
         const val DEBUG_CODE = "USER_VIEW_MODEL"
     }
 
     private val userRepo: UserRepository = UserRepository.instance
-    private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     private val _currentUser: MutableLiveData<FirebaseUser> = MutableLiveData(userRepo.user)
-    private val _currentException: MutableLiveData<Exception> = MutableLiveData(null)
-
-    val isLoading: LiveData<Boolean>
-        get() = _isLoading
-
-    val exception: LiveData<Exception>
-        get() = _currentException
 
     val user: LiveData<FirebaseUser>
         get() = _currentUser
@@ -39,28 +31,27 @@ class UserViewModel: ViewModel() {
                     _currentUser.postValue(user)
                 }
                 is Result.Error -> {
-                    val exception = result.ex as Exception
-                    _currentException.postValue(exception)
+                    currentException = result.ex
                 }
             }
-            _isLoading.postValue(false)
+            loading = false
         }
     }
 
     fun createUser(email: String, password: String) {
-        _isLoading.postValue(true)
+        loading = true
         userRepo.register(email, password, userAuthCallback)
     }
 
     fun loginUser(email: String, password: String) {
-        _isLoading.postValue(true)
+        loading = true
         userRepo.login(email, password, userAuthCallback)
     }
 
     fun logout() {
-        _isLoading.postValue(true)
+        loading = true
         userRepo.logout()
-        _isLoading.postValue(false)
+        loading = false
         _currentUser.postValue(null)
     }
 
