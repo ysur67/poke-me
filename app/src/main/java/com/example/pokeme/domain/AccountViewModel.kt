@@ -21,7 +21,12 @@ class AccountViewModel : BaseViewModel() {
 
     fun updateAccountByUser(user: FirebaseUser) {
         loading = true
-        _currentAccount = accountRepo.getOrCreateAccount(user) as MutableLiveData<Account>
+        accountRepo.getOrCreateAccount(user) {
+            when(it) {
+                is Result.Success -> { _currentAccount.postValue(it.data) }
+                is Result.Error -> { currentException = it.ex }
+            }
+        }
         loading = false
     }
 
@@ -36,12 +41,8 @@ class AccountViewModel : BaseViewModel() {
         val currentAccount = _currentAccount.value ?: return
         accountRepo.getFriends(currentAccount) {
             when (it) {
-                is Result.Success -> {
-                    _friends.postValue(it.data as ArrayList<Account>)
-                }
-                is Result.Error -> {
-                    currentException = it.ex
-                }
+                is Result.Success -> { _friends.postValue(it.data as ArrayList<Account>) }
+                is Result.Error -> { currentException = it.ex }
             }
         }
     }

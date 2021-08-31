@@ -2,8 +2,6 @@ package com.example.pokeme.domain
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.pokeme.data.models.User
 import com.example.pokeme.presentation.form.LoginForm
 import com.example.pokeme.presentation.form.RegisterForm
 import com.example.pokeme.repository.OnDataReadyCallback
@@ -31,7 +29,7 @@ class UserViewModel: BaseViewModel() {
                     _currentUser.postValue(user)
                 }
                 is Result.Error -> {
-                    currentException = result.ex
+                    _currentException = result.ex
                 }
             }
             loading = false

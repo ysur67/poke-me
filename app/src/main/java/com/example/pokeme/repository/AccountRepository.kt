@@ -6,6 +6,7 @@ import com.example.pokeme.data.models.Account
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.lang.NullPointerException
 
 
 class AccountRepository {
@@ -17,18 +18,15 @@ class AccountRepository {
 
     private val connection = Firebase.firestore
 
-    fun getOrCreateAccount(user: FirebaseUser) : LiveData<Account>  {
+    fun getOrCreateAccount(user: FirebaseUser, callback: (Result<Account>) -> Unit) {
         val email = user.email!!
-        val result = MutableLiveData<Account>(null)
         connection.collection(ACCOUNT_COLLECTION).document(email).get()
-            .addOnFailureListener {
-                result.postValue(null)
-            }
             .addOnSuccessListener {
-                val account = Account(email, it.getString("username") ?: "")
-                result.postValue(account)
+                val email = it.getString("email") ?: throw NullPointerException()
+                val username = it.getString("username") ?: ""
+                callback(Result.Success(Account(email, username)))
             }
-        return result
+            .addOnFailureListener { callback(Result.Error(it)) }
     }
 
     fun updateRow(id: String, fields: HashMap<String, String>) {
