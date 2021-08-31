@@ -22,7 +22,6 @@ class AccountRepository {
         val email = user.email!!
         connection.collection(ACCOUNT_COLLECTION).document(email).get()
             .addOnSuccessListener {
-                val email = it.getString("email") ?: throw NullPointerException()
                 val username = it.getString("username") ?: ""
                 callback(Result.Success(Account(email, username)))
             }
