@@ -1,7 +1,13 @@
 package com.example.pokeme.repository
 
+import android.util.Log
+import com.example.pokeme.data.models.Account
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 
 class UserRepository {
@@ -9,12 +15,13 @@ class UserRepository {
         val instance = UserRepository()
         private const val DEBUG_CODE: String = "USER_REPO"
     }
-    private val connection: FirebaseAuth = FirebaseAuth.getInstance()
+    private val authService: FirebaseAuth = FirebaseAuth.getInstance()
+
     val user: FirebaseUser?
-        get() = connection.currentUser
+        get() = authService.currentUser
 
     fun register(email: String, password: String, callback: OnDataReadyCallback) {
-        val task = connection.createUserWithEmailAndPassword(email, password)
+        val task = authService.createUserWithEmailAndPassword(email, password)
         task.addOnSuccessListener {
             val user = it.user
             if (user != null) {
@@ -27,7 +34,7 @@ class UserRepository {
     }
 
     fun login(email: String, password: String, callback: OnDataReadyCallback){
-        val task = connection.signInWithEmailAndPassword(email, password)
+        val task = authService.signInWithEmailAndPassword(email, password)
         task.addOnSuccessListener {
             val user = it.user
             if (user != null) {
@@ -40,6 +47,6 @@ class UserRepository {
     }
 
     fun logout() {
-        connection.signOut()
+        authService.signOut()
     }
 }

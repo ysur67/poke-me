@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/friendListFragment">
+    <fragment
+        android:id="@+id/profileSettingsFragment"
+        android:name="com.example.pokeme.presentation.fragment.ProfileSettingsFragment"
+        android:label="fragment_profile_settings"
+        tools:layout="@layout/fragment_profile_settings" />
+    <fragment
+        android:id="@+id/pokesFragment"
+        android:name="com.example.pokeme.presentation.fragment.PokesFragment"
+        android:label="fragment_pokes"
+        tools:layout="@layout/fragment_pokes" />
+    <fragment
+        android:id="@+id/friendListFragment"
+        android:name="com.example.pokeme.presentation.fragment.FriendListFragment"
+        android:label="fragment_friend_list"
+        tools:layout="@layout/fragment_friend_list" />
+</navigation>
