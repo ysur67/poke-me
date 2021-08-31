@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.pokeme.presentation.form.LoginForm
 import com.example.pokeme.presentation.form.RegisterForm
-import com.example.pokeme.repository.OnDataReadyCallback
 import com.example.pokeme.repository.Result
 import com.example.pokeme.repository.UserRepository
 import com.google.firebase.auth.FirebaseUser
@@ -21,29 +20,14 @@ class UserViewModel: BaseViewModel() {
     val user: LiveData<FirebaseUser>
         get() = _currentUser
 
-    private val userAuthCallback = object : OnDataReadyCallback {
-        override fun onDataReady(result: Result<FirebaseUser>) {
-            when (result) {
-                is Result.Success -> {
-                    val user = result.data as FirebaseUser
-                    _currentUser.postValue(user)
-                }
-                is Result.Error -> {
-                    currentException = result.ex
-                }
-            }
-            loading = false
-        }
-    }
-
     fun createUser(email: String, password: String) {
         loading = true
-        userRepo.register(email, password, userAuthCallback)
+        userRepo.register(email, password) { onUserAuth(it) }
     }
 
     fun loginUser(email: String, password: String) {
         loading = true
-        userRepo.login(email, password, userAuthCallback)
+        userRepo.login(email, password) { onUserAuth(it) }
     }
 
     fun logout() {
@@ -61,5 +45,15 @@ class UserViewModel: BaseViewModel() {
     fun isFormValid(form: LoginForm) : Boolean {
         form.validate()
         return form.isValid
+    }
+
+    private fun onUserAuth(result: Result<FirebaseUser>) {
+        when (result) {
+            is Result.Success -> {
+                _currentUser.postValue(result.data)
+                loading = false
+            }
+            is Result.Error -> { currentException = result.ex }
+        }
     }
 }
