@@ -43,6 +43,7 @@ class MessagesRepository {
             .setMessageId(0.toString())
             .addData("title", title)
             .addData("body", text)
+
         firemessage.send(builder.build())
     }
 }

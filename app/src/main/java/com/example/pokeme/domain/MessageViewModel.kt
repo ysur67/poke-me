@@ -1,5 +1,6 @@
 package com.example.pokeme.domain
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,9 +18,9 @@ class MessageViewModel : ViewModel() {
     val isSending: LiveData<Boolean>
         get() = _isSending
 
-    fun sendMessage(user: User, title: String, body: String) {
+    fun sendMessage(email: String, title: String, body: String) {
         _isSending.postValue(true)
-        messageRepo.getToken(user.email) {
+        messageRepo.getToken(email) {
             if (it is Result.Success) {
                 messageRepo.sendMessage(title, body, it.data)
             }
