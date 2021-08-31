@@ -17,8 +17,13 @@ class MessageViewModel : ViewModel() {
     val isSending: LiveData<Boolean>
         get() = _isSending
 
-    fun sendMessage(content: Message, user: User) {
+    fun sendMessage(user: User, title: String, body: String) {
         _isSending.postValue(true)
+        messageRepo.getToken(user.email) {
+            if (it is Result.Success) {
+                messageRepo.sendMessage(title, body, it.data)
+            }
+        }
         _isSending.postValue(false)
     }
 
