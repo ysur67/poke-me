@@ -1,12 +1,10 @@
 package com.example.pokeme.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.animation.core.snap
 import com.example.pokeme.data.models.Account
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.lang.NullPointerException
 
 
 class AccountRepository {
@@ -35,20 +33,19 @@ class AccountRepository {
     fun getFriends(account: Account, callback: (Result<List<Account>>) -> Unit) {
         connection.collection(FRIENDS_COLLECTION)
             .whereEqualTo("firstAccount", account.email)
-            .get()
-            .addOnCompleteListener{
-                if (it.isSuccessful) {
-                    val list = ArrayList<Account>()
-                    for (doc in it.result!!) {
-                        val friend = Account(doc.data["secondAccount"].toString(), "")
-                        list.add(friend)
-                    }
-                    callback(Result.Success(list))
+            .addSnapshotListener{snapshot, error ->
+                if (error != null) {
+                    callback(Result.Error(error))
+                    return@addSnapshotListener
                 }
-            }
-            .addOnFailureListener {
-                callback(Result.Error(it))
+                val friends = ArrayList<Account>()
+                if (snapshot != null && !snapshot.isEmpty) {
+                    for (doc in snapshot) {
+                        val email = doc.getString("secondAccount") ?: "your friend's email"
+                        friends.add(Account(email, ""))
+                    }
+                }
+                callback(Result.Success(friends))
             }
     }
-
 }

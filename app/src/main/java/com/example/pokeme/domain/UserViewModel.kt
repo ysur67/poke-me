@@ -29,7 +29,7 @@ class UserViewModel: BaseViewModel() {
                     _currentUser.postValue(user)
                 }
                 is Result.Error -> {
-                    _currentException = result.ex
+                    currentException = result.ex
                 }
             }
             loading = false

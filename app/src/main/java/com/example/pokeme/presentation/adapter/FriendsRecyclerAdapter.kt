@@ -24,7 +24,7 @@ class FriendsRecyclerAdapter(private var friends: ArrayList<Account>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val current = friends[position]
-        holder.friendNameView.text = current.username
+        holder.friendNameView.text = current.email
     }
 
     override fun getItemCount(): Int {
