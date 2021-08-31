@@ -12,6 +12,8 @@ import com.example.pokeme.R
 import com.example.pokeme.databinding.ActivityMainBinding
 import com.example.pokeme.domain.AccountViewModel
 import com.example.pokeme.domain.UserViewModel
+import com.example.pokeme.repository.MessagesRepository
+import com.example.pokeme.repository.UserRepository
 
 
 class MainActivity : AppCompatActivity() {
@@ -37,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         })
         val currentUser = userViewModel.user.value ?: return
         accountViewModel.updateAccountByUser(currentUser)
+        val messageRepo = MessagesRepository.instance
+        messageRepo.updateToken(currentUser.email!!)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
