@@ -21,4 +21,6 @@
     <string name="save">Save</string>
     <string name="reset">Reset</string>
     <string name="logout">Logout</string>
+    <string name="auth_invalid">Проверьте введенные данные</string>
+    <string name="user_doesnot_exist">Пользователя не существует</string>
 </resources>

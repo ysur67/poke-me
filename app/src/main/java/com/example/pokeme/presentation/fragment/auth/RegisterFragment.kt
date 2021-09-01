@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.allViews
 import androidx.fragment.app.activityViewModels
 import com.example.pokeme.databinding.FragmentRegisterBinding
 import com.example.pokeme.domain.UserViewModel
@@ -46,14 +47,19 @@ class RegisterFragment : BaseAuthFragment() {
             userViewModel.createUser(form.userEmail, binding.editPassword.text.toString())
         }
 
-        userViewModel.isLoading.observe(viewLifecycleOwner, {
-            binding.register.isEnabled = !it
-        })
+        userViewModel.isLoading.observe(viewLifecycleOwner, { onLoading(it) })
+        userViewModel.exception.observe(viewLifecycleOwner, { onError(it) })
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onLoading(value: Boolean) {
+        for (view in binding.root.allViews) {
+            view.isEnabled = !value
+        }
     }
 
     companion object {

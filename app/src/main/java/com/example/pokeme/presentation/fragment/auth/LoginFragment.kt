@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.allViews
 import androidx.fragment.app.activityViewModels
 import com.example.pokeme.databinding.FragmentLoginBinding
 import com.example.pokeme.domain.UserViewModel
@@ -42,9 +43,9 @@ class LoginFragment : BaseAuthFragment() {
             userViewModel.loginUser(form.userEmail, binding.editPassword.text.toString())
         }
 
-        userViewModel.isLoading.observe(viewLifecycleOwner, {
-            onLoading(it)
-        })
+        userViewModel.isLoading.observe(viewLifecycleOwner, { onLoading(it) })
+
+        userViewModel.exception.observe(viewLifecycleOwner, { if (it != null) onError(it) })
     }
 
     override fun onDestroy() {
@@ -52,8 +53,10 @@ class LoginFragment : BaseAuthFragment() {
         _binding = null
     }
 
-    private fun onLoading(loading: Boolean) {
-
+    override fun onLoading(value: Boolean) {
+        for (view in binding.root.allViews) {
+            view.isEnabled = !value
+        }
     }
 
     companion object {
