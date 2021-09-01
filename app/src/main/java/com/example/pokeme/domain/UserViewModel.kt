@@ -51,9 +51,9 @@ class UserViewModel: BaseViewModel() {
         when (result) {
             is Result.Success -> {
                 _currentUser.postValue(result.data)
-                loading = false
             }
             is Result.Error -> { currentException = result.ex }
         }
+        loading = false
     }
 }
