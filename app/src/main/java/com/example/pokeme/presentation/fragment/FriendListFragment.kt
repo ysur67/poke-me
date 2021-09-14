@@ -9,11 +9,14 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pokeme.App
 import com.example.pokeme.R
 import com.example.pokeme.data.models.Account
 import com.example.pokeme.databinding.FragmentFriendListBinding
+import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.AccountViewModel
 import com.example.pokeme.presentation.adapter.FriendsRecyclerAdapter
+import javax.inject.Inject
 
 
 /**
@@ -22,11 +25,19 @@ import com.example.pokeme.presentation.adapter.FriendsRecyclerAdapter
  * create an instance of this fragment.
  */
 class FriendListFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val accountViewModel: AccountViewModel by activityViewModels { viewModelFactory }
+    private lateinit var friendsRecyclerAdapter: FriendsRecyclerAdapter
+
     private var _binding: FragmentFriendListBinding? = null
     private val binding get() = _binding!!
 
-    private val accountViewModel: AccountViewModel by activityViewModels()
-    private lateinit var friendsRecyclerAdapter: FriendsRecyclerAdapter
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity?.application as App).appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

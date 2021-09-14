@@ -10,16 +10,22 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.pokeme.R
 import com.example.pokeme.databinding.ActivityMainBinding
+import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.AccountViewModel
 import com.example.pokeme.domain.UserViewModel
 import com.example.pokeme.repository.MessagesRepository
 import com.example.pokeme.repository.UserRepository
+import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val userViewModel: UserViewModel by viewModels { viewModelFactory }
+    private val accountViewModel: AccountViewModel by viewModels { viewModelFactory }
+
     private lateinit var binding: ActivityMainBinding
-    private val userViewModel: UserViewModel by viewModels()
-    private val accountViewModel: AccountViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.example.pokeme.App
 import com.example.pokeme.data.models.Account
 import com.example.pokeme.databinding.FragmentProfileSettingsBinding
+import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.AccountViewModel
+import javax.inject.Inject
 
 
 /**
@@ -17,10 +20,18 @@ import com.example.pokeme.domain.AccountViewModel
  * create an instance of this fragment.
  */
 class ProfileSettingsFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val accountViewModel: AccountViewModel by activityViewModels { viewModelFactory }
+
     private var _binding: FragmentProfileSettingsBinding? = null
     private val binding get() = _binding!!
 
-    private val accountViewModel: AccountViewModel by activityViewModels()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity?.application as App).appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
