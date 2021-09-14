@@ -6,11 +6,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokeme.data.models.Account
 import com.example.pokeme.repository.AccountRepository
+import com.example.pokeme.repository.AccountRepositoryFirebase
 import com.example.pokeme.repository.Result
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import javax.inject.Inject
 
-class AccountViewModel : BaseViewModel() {
-    private val accountRepo = AccountRepository.instance
+class AccountViewModel @Inject constructor(
+    val accountRepo: AccountRepository
+    ) : BaseViewModel() {
+
     private var _currentAccount: MutableLiveData<Account> = MutableLiveData(null)
     private val _friends: MutableLiveData<ArrayList<Account>> = MutableLiveData(null)
 
@@ -32,7 +39,7 @@ class AccountViewModel : BaseViewModel() {
 
     fun updateAccount(account: Account) {
         loading = true
-        accountRepo.updateRow(account.email, account.toHashMap())
+        accountRepo.updateDocument(account.email, account.toHashMap())
         _currentAccount.postValue(account)
         loading = false
     }

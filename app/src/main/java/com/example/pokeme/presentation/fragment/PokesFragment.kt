@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.pokeme.App
 import com.example.pokeme.R
 import com.example.pokeme.databinding.FragmentPokesBinding
+import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.MessageViewModel
+import javax.inject.Inject
 
 
 /**
@@ -17,10 +21,18 @@ import com.example.pokeme.domain.MessageViewModel
  * create an instance of this fragment.
  */
 class PokesFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val messageViewModel: MessageViewModel by activityViewModels { viewModelFactory }
+
     private var _binding: FragmentPokesBinding? = null
     private val binding get() = _binding!!
 
-    private val messageViewModel: MessageViewModel by activityViewModels()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity?.application as App).appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

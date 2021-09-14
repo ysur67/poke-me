@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.allViews
 import androidx.fragment.app.activityViewModels
+import com.example.pokeme.App
 import com.example.pokeme.databinding.FragmentLoginBinding
+import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.UserViewModel
 import com.example.pokeme.presentation.form.LoginForm
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
@@ -20,7 +23,14 @@ class LoginFragment : BaseAuthFragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private val userViewModel: UserViewModel by activityViewModels()
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val userViewModel: UserViewModel by activityViewModels { viewModelFactory }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity?.application as App).appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
