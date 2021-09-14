@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.pokeme.App
 import com.example.pokeme.R
 import com.example.pokeme.databinding.ActivityMainBinding
 import com.example.pokeme.di.ViewModelFactory
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (application as App).appComponent.inject(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
