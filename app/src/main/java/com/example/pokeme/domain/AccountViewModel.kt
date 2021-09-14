@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.pokeme.data.models.Account
 import com.example.pokeme.repository.AccountRepository
-import com.example.pokeme.repository.Result
+import com.example.pokeme.utils.Result
 import com.google.firebase.auth.FirebaseUser
 import javax.inject.Inject
 

@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.pokeme.presentation.form.LoginForm
 import com.example.pokeme.presentation.form.RegisterForm
-import com.example.pokeme.repository.Result
+import com.example.pokeme.utils.Result
 import com.example.pokeme.repository.UserRepository
 import com.google.firebase.auth.FirebaseUser
-import java.lang.Exception
 import javax.inject.Inject
 
 class UserViewModel @Inject constructor(

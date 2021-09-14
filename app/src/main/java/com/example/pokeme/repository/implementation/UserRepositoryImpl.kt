@@ -1,5 +1,6 @@
 package com.example.pokeme.repository
 
+import com.example.pokeme.utils.Result
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import javax.inject.Inject

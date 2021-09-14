@@ -1,6 +1,6 @@
 package com.example.pokeme.repository.implementation
 
-import com.example.pokeme.repository.Result
+import com.example.pokeme.utils.Result
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging

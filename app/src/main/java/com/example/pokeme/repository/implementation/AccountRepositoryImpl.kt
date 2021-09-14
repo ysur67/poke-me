@@ -2,6 +2,7 @@ package com.example.pokeme.repository
 
 
 import com.example.pokeme.data.models.Account
+import com.example.pokeme.utils.Result
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject

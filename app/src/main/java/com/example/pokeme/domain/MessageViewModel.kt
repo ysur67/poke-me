@@ -1,7 +1,7 @@
 package com.example.pokeme.domain
 
 import com.example.pokeme.repository.implementation.MessagesRepository
-import com.example.pokeme.repository.Result
+import com.example.pokeme.utils.Result
 
 
 class MessageViewModel : BaseViewModel() {
