@@ -1,10 +1,10 @@
-package com.example.pokeme.repository
+package com.example.pokeme.repository.implementation
 
+import com.example.pokeme.repository.Result
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
-import com.google.firebase.messaging.RemoteMessageCreator
 
 
 class MessagesRepository {

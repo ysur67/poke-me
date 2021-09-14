@@ -1,12 +1,6 @@
 package com.example.pokeme.domain
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.pokeme.data.models.User
-import com.example.pokeme.data.models.Message
-import com.example.pokeme.repository.MessagesRepository
+import com.example.pokeme.repository.implementation.MessagesRepository
 import com.example.pokeme.repository.Result
 
 

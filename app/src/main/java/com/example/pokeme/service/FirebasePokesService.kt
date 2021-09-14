@@ -4,11 +4,10 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationManagerCompat
 import com.example.pokeme.R
-import com.example.pokeme.repository.MessagesRepository
+import com.example.pokeme.repository.implementation.MessagesRepository
 import com.example.pokeme.repository.UserRepository
 import com.example.pokeme.utils.Const
 import com.google.firebase.messaging.FirebaseMessagingService

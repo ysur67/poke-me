@@ -3,15 +3,10 @@ package com.example.pokeme.domain
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.pokeme.data.models.Account
 import com.example.pokeme.repository.AccountRepository
-import com.example.pokeme.repository.AccountRepositoryFirebase
 import com.example.pokeme.repository.Result
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import javax.inject.Inject
 
 class AccountViewModel @Inject constructor(

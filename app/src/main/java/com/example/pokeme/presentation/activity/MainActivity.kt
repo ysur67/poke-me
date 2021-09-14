@@ -14,8 +14,7 @@ import com.example.pokeme.databinding.ActivityMainBinding
 import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.AccountViewModel
 import com.example.pokeme.domain.UserViewModel
-import com.example.pokeme.repository.MessagesRepository
-import com.example.pokeme.repository.UserRepository
+import com.example.pokeme.repository.implementation.MessagesRepository
 import javax.inject.Inject
 
 
