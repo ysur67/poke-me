@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.allViews
 import androidx.fragment.app.activityViewModels
+import com.example.pokeme.App
 import com.example.pokeme.databinding.FragmentRegisterBinding
 import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.UserViewModel
@@ -27,6 +28,11 @@ class RegisterFragment : BaseAuthFragment() {
 
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity?.application as App).appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

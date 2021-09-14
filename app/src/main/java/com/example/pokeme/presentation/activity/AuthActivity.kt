@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.pokeme.App
 import com.example.pokeme.R
 import com.example.pokeme.databinding.ActivityAuthBinding
+import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.UserViewModel
 import com.example.pokeme.repository.UserRepository
 import com.example.pokeme.utils.activity.makeToast
@@ -18,14 +19,14 @@ import javax.inject.Inject
 
 class AuthActivity : AppCompatActivity() {
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactory: ViewModelFactory
     private val viewModel: UserViewModel by viewModels{ viewModelFactory }
 
     private lateinit var binding: ActivityAuthBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (application as App).appComponent.inject(this@AuthActivity)
+        (application as App).appComponent.inject(this)
         binding = ActivityAuthBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)

@@ -10,12 +10,12 @@ import com.google.firebase.auth.FirebaseUser
 import java.lang.Exception
 import javax.inject.Inject
 
-class UserViewModel: BaseViewModel() {
+class UserViewModel @Inject constructor(
+    private val userRepo: UserRepository
+    ): BaseViewModel() {
     companion object {
         const val DEBUG_CODE = "USER_VIEW_MODEL"
     }
-    @Inject
-    lateinit var userRepo: UserRepository
     private val _currentUser: MutableLiveData<FirebaseUser> = MutableLiveData(null)
 
     val user: LiveData<FirebaseUser>

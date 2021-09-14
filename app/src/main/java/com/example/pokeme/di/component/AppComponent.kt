@@ -19,6 +19,7 @@ import javax.inject.Singleton
 @Component(modules=[
     AppModule::class,
     RepositoryModule::class,
+    ViewModelModule::class
 ])
 @Singleton
 interface AppComponent {
