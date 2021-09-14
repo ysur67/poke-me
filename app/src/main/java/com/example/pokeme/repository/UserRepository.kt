@@ -8,15 +8,28 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import javax.inject.Inject
 
-
-class UserRepository {
-    private val authService: FirebaseAuth = FirebaseAuth.getInstance()
-
+interface UserRepository {
     val user: FirebaseUser?
+    fun register(email: String, password: String, callback: (Result<FirebaseUser>) -> Unit)
+    fun login(email: String, password: String, callback: (Result<FirebaseUser>) -> Unit)
+    fun logout()
+}
+
+
+class UserRepositoryFirebase @Inject constructor(
+    val authService: FirebaseAuth
+    ) : UserRepository {
+
+    override val user: FirebaseUser?
         get() = authService.currentUser
 
-    fun register(email: String, password: String, callback: (Result<FirebaseUser>) -> Unit) {
+    override fun register(
+        email: String,
+        password: String,
+        callback: (Result<FirebaseUser>) -> Unit
+    ) {
         val task = authService.createUserWithEmailAndPassword(email, password)
         task.addOnSuccessListener {
             val user = it.user
@@ -29,7 +42,11 @@ class UserRepository {
         }
     }
 
-    fun login(email: String, password: String, callback: (Result<FirebaseUser>) -> Unit) {
+    override fun login(
+        email: String,
+        password: String,
+        callback: (Result<FirebaseUser>) -> Unit
+    ) {
         val task = authService.signInWithEmailAndPassword(email, password)
         task.addOnSuccessListener {
             val user = it.user
@@ -42,12 +59,11 @@ class UserRepository {
         }
     }
 
-    fun logout() {
+    override fun logout() {
         authService.signOut()
     }
 
     companion object {
-        val instance = UserRepository()
         private const val DEBUG_CODE: String = "USER_REPO"
     }
 }

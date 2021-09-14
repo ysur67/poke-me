@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.core.view.allViews
 import androidx.fragment.app.activityViewModels
 import com.example.pokeme.databinding.FragmentRegisterBinding
+import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.UserViewModel
 import com.example.pokeme.presentation.form.RegisterForm
+import javax.inject.Inject
 
 
 /**
@@ -18,9 +20,13 @@ import com.example.pokeme.presentation.form.RegisterForm
  * create an instance of this fragment.
  */
 class RegisterFragment : BaseAuthFragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val userViewModel: UserViewModel by activityViewModels { viewModelFactory }
+
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
-    private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
