@@ -9,6 +9,7 @@ import com.example.pokeme.domain.UserViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import javax.inject.Singleton
 
 @Module
 abstract class ViewModelModule {
@@ -18,11 +19,13 @@ abstract class ViewModelModule {
     ) : ViewModelProvider.Factory
 
     @Binds
+    @Singleton
     @IntoMap
     @ViewModelKey(AccountViewModel::class)
     abstract fun bindAccountViewModel(viewModel: AccountViewModel) : ViewModel
 
     @Binds
+    @Singleton
     @IntoMap
     @ViewModelKey(UserViewModel::class)
     abstract fun bindUserViewModel(viewModel: UserViewModel) : ViewModel
