@@ -2,7 +2,10 @@ package com.example.pokeme.repository
 
 import com.example.pokeme.utils.Result
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.ktx.Firebase
+import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
 
@@ -13,37 +16,40 @@ class UserRepositoryFirebase @Inject constructor(
     override val user: FirebaseUser?
         get() = authService.currentUser
 
-    override fun register(
-        email: String,
-        password: String,
-        callback: (Result<FirebaseUser>) -> Unit
-    ) {
-        val task = authService.createUserWithEmailAndPassword(email, password)
-        task.addOnSuccessListener {
-            val user = it.user
-            if (user != null) {
-                callback(Result.Success(user))
+    override fun register(email: String, password: String) : Observable<Result<FirebaseUser>> {
+        return Observable.create{ emitter ->
+            val task = authService.createUserWithEmailAndPassword(email, password)
+            task.addOnSuccessListener {
+                val user = it.user
+                if (user != null) {
+                    emitter.onNext(Result.Success(user))
+                    return@addOnSuccessListener
+                }
+                emitter.onNext(Result.Error(NullPointerException("Registration error")))
             }
-        }
-        task.addOnFailureListener {
-            callback(Result.Error(it))
+            task.addOnFailureListener {
+                emitter.onError(it)
+            }
         }
     }
 
-    override fun login(
-        email: String,
-        password: String,
-        callback: (Result<FirebaseUser>) -> Unit
-    ) {
-        val task = authService.signInWithEmailAndPassword(email, password)
-        task.addOnSuccessListener {
-            val user = it.user
-            if (user != null) {
-                callback(Result.Success(user))
+    override fun login(email: String, password: String) : Observable<Result<FirebaseUser>> {
+        return Observable.create{ emitter ->
+            val task = authService.signInWithEmailAndPassword(email, password)
+            task.addOnSuccessListener {
+                val user = it.user
+                if (user != null) {
+                    emitter.onNext(Result.Success(user))
+                } else {
+                    emitter.onError(FirebaseAuthException(
+                        "101",
+                        "There is no user with such login data"
+                    ))
+                }
             }
-        }
-        task.addOnFailureListener {
-            callback(Result.Error(it))
+            task.addOnFailureListener {
+                emitter.onError(it)
+            }
         }
     }
 
