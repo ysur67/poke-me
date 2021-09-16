@@ -6,18 +6,26 @@ import android.app.NotificationManager
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationManagerCompat
+import com.example.pokeme.App
 import com.example.pokeme.R
-import com.example.pokeme.repository.implementation.MessagesRepositoryImpl
-import com.example.pokeme.repository.UserRepository
+import com.example.pokeme.data.repository.MessageRepository
+import com.example.pokeme.data.repository.implementation.MessagesRepositoryImpl
+import com.example.pokeme.data.repository.UserRepository
 import com.example.pokeme.utils.Const
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import javax.inject.Inject
 
 class FirebasePokesService : FirebaseMessagingService() {
-    private val messageRepo = MessagesRepositoryImpl.instance
+    @Inject
+    lateinit var messageRepo: MessageRepository
     @Inject
     lateinit var userRepo: UserRepository
+
+    override fun onCreate() {
+        super.onCreate()
+        (application as App).appComponent.inject(this)
+    }
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)

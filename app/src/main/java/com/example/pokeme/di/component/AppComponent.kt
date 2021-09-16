@@ -1,7 +1,5 @@
 package com.example.pokeme.di.component
 
-import android.app.Application
-import android.content.Context
 import com.example.pokeme.di.module.AppModule
 import com.example.pokeme.di.module.RepositoryModule
 import com.example.pokeme.di.module.ViewModelModule
@@ -12,9 +10,7 @@ import com.example.pokeme.presentation.fragment.PokesFragment
 import com.example.pokeme.presentation.fragment.ProfileSettingsFragment
 import com.example.pokeme.presentation.fragment.auth.LoginFragment
 import com.example.pokeme.presentation.fragment.auth.RegisterFragment
-import com.example.pokeme.repository.AccountRepository
-import com.example.pokeme.repository.UserRepository
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.pokeme.service.FirebasePokesService
 import dagger.Component
 import javax.inject.Singleton
 
@@ -34,4 +30,6 @@ interface AppComponent {
     fun inject(friendListFragment: FriendListFragment)
     fun inject(pokesFragment: PokesFragment)
     fun inject(profileSettingsFragment: ProfileSettingsFragment)
+
+    fun inject(firebasePokesService: FirebasePokesService)
 }
