@@ -1,11 +1,11 @@
 package com.example.pokeme.di.module
 
-import com.example.pokeme.repository.AccountRepository
-import com.example.pokeme.repository.MessageRepository
-import com.example.pokeme.repository.implementation.AccountRepositoryImpl
-import com.example.pokeme.repository.implementation.UserRepositoryImpl
-import com.example.pokeme.repository.UserRepository
-import com.example.pokeme.repository.implementation.MessagesRepositoryImpl
+import com.example.pokeme.data.repository.AccountRepository
+import com.example.pokeme.data.repository.MessageRepository
+import com.example.pokeme.data.repository.implementation.AccountRepositoryImpl
+import com.example.pokeme.data.repository.implementation.UserRepositoryImpl
+import com.example.pokeme.data.repository.UserRepository
+import com.example.pokeme.data.repository.implementation.MessagesRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore

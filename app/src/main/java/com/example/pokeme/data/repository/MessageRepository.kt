@@ -1,4 +1,4 @@
-package com.example.pokeme.repository
+package com.example.pokeme.data.repository
 
 import io.reactivex.rxjava3.core.Observable
 import com.example.pokeme.utils.Result

@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.pokeme.App
@@ -12,8 +11,6 @@ import com.example.pokeme.R
 import com.example.pokeme.databinding.ActivityAuthBinding
 import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.UserViewModel
-import com.example.pokeme.repository.UserRepository
-import com.example.pokeme.utils.activity.makeToast
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import javax.inject.Inject
 

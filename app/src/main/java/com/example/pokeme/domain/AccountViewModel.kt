@@ -4,7 +4,7 @@ package com.example.pokeme.domain
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.pokeme.data.models.Account
-import com.example.pokeme.repository.AccountRepository
+import com.example.pokeme.data.repository.AccountRepository
 import com.example.pokeme.utils.Result
 import com.google.firebase.auth.FirebaseUser
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

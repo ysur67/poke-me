@@ -14,7 +14,8 @@ import com.example.pokeme.databinding.ActivityMainBinding
 import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.AccountViewModel
 import com.example.pokeme.domain.UserViewModel
-import com.example.pokeme.repository.implementation.MessagesRepositoryImpl
+import com.example.pokeme.data.repository.implementation.MessagesRepositoryImpl
+import com.example.pokeme.domain.MessageViewModel
 import javax.inject.Inject
 
 
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewModelFactory: ViewModelFactory
     private val userViewModel: UserViewModel by viewModels { viewModelFactory }
     private val accountViewModel: AccountViewModel by viewModels { viewModelFactory }
+    private val messageViewModel: MessageViewModel by viewModels { viewModelFactory }
 
     private lateinit var binding: ActivityMainBinding
 
@@ -46,8 +48,7 @@ class MainActivity : AppCompatActivity() {
         })
         val currentUser = userViewModel.user.value ?: return
         accountViewModel.updateAccountByUser(currentUser)
-        val messageRepo = MessagesRepositoryImpl.instance
-        messageRepo.updateToken(currentUser.email!!)
+        messageViewModel.updateToken(currentUser.email!!)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -1,8 +1,8 @@
-package com.example.pokeme.repository.implementation
+package com.example.pokeme.data.repository.implementation
 
 
 import com.example.pokeme.data.models.Account
-import com.example.pokeme.repository.AccountRepository
+import com.example.pokeme.data.repository.AccountRepository
 import com.example.pokeme.utils.Result
 import com.example.pokeme.utils.firebase.getStringOrEmpty
 import com.example.pokeme.utils.firebase.isNotEmpty

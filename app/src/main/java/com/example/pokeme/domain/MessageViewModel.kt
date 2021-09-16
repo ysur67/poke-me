@@ -1,7 +1,6 @@
 package com.example.pokeme.domain
 
-import com.example.pokeme.repository.MessageRepository
-import com.example.pokeme.repository.implementation.MessagesRepositoryImpl
+import com.example.pokeme.data.repository.MessageRepository
 import com.example.pokeme.utils.Result
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -26,5 +25,9 @@ class MessageViewModel @Inject constructor(
                 }
             }
         loading = false
+    }
+
+    fun updateToken(email: String) {
+        messageRepo.updateToken(email)
     }
 }

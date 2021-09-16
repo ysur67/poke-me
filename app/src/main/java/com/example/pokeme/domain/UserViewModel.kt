@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.pokeme.presentation.form.LoginForm
 import com.example.pokeme.presentation.form.RegisterForm
 import com.example.pokeme.utils.Result
-import com.example.pokeme.repository.UserRepository
+import com.example.pokeme.data.repository.UserRepository
 import com.google.firebase.auth.FirebaseUser
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers

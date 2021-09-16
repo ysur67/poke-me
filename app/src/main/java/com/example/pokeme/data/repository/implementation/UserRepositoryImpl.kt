@@ -1,6 +1,6 @@
-package com.example.pokeme.repository.implementation
+package com.example.pokeme.data.repository.implementation
 
-import com.example.pokeme.repository.UserRepository
+import com.example.pokeme.data.repository.UserRepository
 import com.example.pokeme.utils.Result
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
