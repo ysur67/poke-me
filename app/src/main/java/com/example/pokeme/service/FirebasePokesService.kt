@@ -7,7 +7,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationManagerCompat
 import com.example.pokeme.R
-import com.example.pokeme.repository.implementation.MessagesRepository
+import com.example.pokeme.repository.implementation.MessagesRepositoryImpl
 import com.example.pokeme.repository.UserRepository
 import com.example.pokeme.utils.Const
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -15,7 +15,7 @@ import com.google.firebase.messaging.RemoteMessage
 import javax.inject.Inject
 
 class FirebasePokesService : FirebaseMessagingService() {
-    private val messageRepo = MessagesRepository.instance
+    private val messageRepo = MessagesRepositoryImpl.instance
     @Inject
     lateinit var userRepo: UserRepository
 
