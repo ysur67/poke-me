@@ -1,13 +1,16 @@
 package com.example.pokeme.di.module
 
 import com.example.pokeme.repository.AccountRepository
+import com.example.pokeme.repository.MessageRepository
 import com.example.pokeme.repository.implementation.AccountRepositoryImpl
 import com.example.pokeme.repository.implementation.UserRepositoryImpl
 import com.example.pokeme.repository.UserRepository
+import com.example.pokeme.repository.implementation.MessagesRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -20,6 +23,12 @@ class RepositoryModule {
     @Singleton
     fun provideFirestore() : FirebaseFirestore {
         return Firebase.firestore
+    }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseMessaging() : FirebaseMessaging {
+        return FirebaseMessaging.getInstance()
     }
 
     @Provides
@@ -38,5 +47,14 @@ class RepositoryModule {
     @Singleton
     fun provideUserRepository(firebaseAuth: FirebaseAuth) : UserRepository {
         return UserRepositoryImpl(firebaseAuth)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMessageRepository(
+        firestore: FirebaseFirestore,
+        firebaseMessaging: FirebaseMessaging
+    ) : MessageRepository {
+        return MessagesRepositoryImpl(firestore, firebaseMessaging)
     }
 }

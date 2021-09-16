@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.di.ViewModelKey
 import com.example.pokeme.domain.AccountViewModel
+import com.example.pokeme.domain.MessageViewModel
 import com.example.pokeme.domain.UserViewModel
 import dagger.Binds
 import dagger.Module
@@ -29,4 +30,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(UserViewModel::class)
     abstract fun bindUserViewModel(viewModel: UserViewModel) : ViewModel
+
+    @Binds
+    @Singleton
+    @IntoMap
+    @ViewModelKey(MessageViewModel::class)
+    abstract fun bindMessageViewModel(viewModel: UserViewModel) : ViewModel
 }
