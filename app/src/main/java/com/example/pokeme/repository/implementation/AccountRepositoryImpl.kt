@@ -24,7 +24,7 @@ class AccountRepositoryFirebase @Inject constructor(
                     emitter.onNext(Result.Success(Account(email, username)))
                 }
                 .addOnFailureListener {
-                    emitter.onNext(Result.Error(it))
+                    emitter.onError(it)
                 }
         }
     }

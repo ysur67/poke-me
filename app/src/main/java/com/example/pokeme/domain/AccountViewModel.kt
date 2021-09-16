@@ -28,6 +28,9 @@ class AccountViewModel @Inject constructor(
         accountRepo.getOrCreateAccount(user)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                currentException = it as Exception
+            }
             .subscribe{
                 when (it) {
                     is Result.Success -> {
