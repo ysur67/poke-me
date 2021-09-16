@@ -3,15 +3,12 @@ package com.example.pokeme.domain
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.pokeme.data.models.Account
 import com.example.pokeme.repository.AccountRepository
-import com.example.pokeme.repository.AccountRepositoryFirebase
-import com.example.pokeme.repository.Result
+import com.example.pokeme.utils.Result
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class AccountViewModel @Inject constructor(
@@ -28,13 +25,23 @@ class AccountViewModel @Inject constructor(
 
     fun updateAccountByUser(user: FirebaseUser) {
         loading = true
-        accountRepo.getOrCreateAccount(user) {
-            when(it) {
-                is Result.Success -> { _currentAccount.postValue(it.data) }
-                is Result.Error -> { currentException = it.ex }
+        accountRepo.getOrCreateAccount(user)
+            .observeOn(Schedulers.io())
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                currentException = it as Exception
             }
-        }
-        loading = false
+            .subscribe{
+                when (it) {
+                    is Result.Success -> {
+                        _currentAccount.postValue(it.data)
+                        loading = false
+                    }
+                    is Result.Error -> {
+                        currentException = it.ex
+                    }
+                }
+            }
     }
 
     fun updateAccount(account: Account) {
@@ -46,12 +53,11 @@ class AccountViewModel @Inject constructor(
 
     fun updateFriends() {
         val currentAccount = _currentAccount.value ?: return
-        accountRepo.getFriends(currentAccount) {
-            when (it) {
-                is Result.Success -> { _friends.postValue(it.data as ArrayList<Account>) }
-                is Result.Error -> { currentException = it.ex }
-            }
-        }
-    }
+        accountRepo.getFriends(currentAccount)
+            .observeOn(Schedulers.io())
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe{
 
+            }
+    }
 }

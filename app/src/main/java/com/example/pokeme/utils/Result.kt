@@ -1,4 +1,4 @@
-package com.example.pokeme.repository
+package com.example.pokeme.utils
 
 sealed class Result<out T: Any> {
     data class Success<out T: Any>(val data: T) : Result<T>()

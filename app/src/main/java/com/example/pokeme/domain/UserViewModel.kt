@@ -4,10 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.pokeme.presentation.form.LoginForm
 import com.example.pokeme.presentation.form.RegisterForm
-import com.example.pokeme.repository.Result
+import com.example.pokeme.utils.Result
 import com.example.pokeme.repository.UserRepository
 import com.google.firebase.auth.FirebaseUser
-import java.lang.Exception
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class UserViewModel @Inject constructor(
@@ -23,12 +24,28 @@ class UserViewModel @Inject constructor(
 
     fun createUser(email: String, password: String) {
         loading = true
-        userRepo.register(email, password) { onUserAuth(it) }
+        userRepo.register(email, password)
+            .observeOn(Schedulers.io())
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                currentException = it as Exception
+            }
+            .subscribe {
+                onUserAuth(it)
+            }
     }
 
     fun loginUser(email: String, password: String) {
         loading = true
-        userRepo.login(email, password) { onUserAuth(it) }
+        userRepo.login(email, password)
+            .observeOn(Schedulers.io())
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                currentException = it as Exception
+            }
+            .subscribe {
+                onUserAuth(it)
+            }
     }
 
     fun logout() {
