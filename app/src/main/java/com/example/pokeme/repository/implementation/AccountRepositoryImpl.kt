@@ -1,7 +1,8 @@
-package com.example.pokeme.repository
+package com.example.pokeme.repository.implementation
 
 
 import com.example.pokeme.data.models.Account
+import com.example.pokeme.repository.AccountRepository
 import com.example.pokeme.utils.Result
 import com.example.pokeme.utils.firebase.getStringOrEmpty
 import com.example.pokeme.utils.firebase.isNotEmpty
@@ -11,7 +12,7 @@ import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
 
-class AccountRepositoryFirebase @Inject constructor(
+class AccountRepositoryImpl @Inject constructor(
     private val connection: FirebaseFirestore
     ) : AccountRepository {
 

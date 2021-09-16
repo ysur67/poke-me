@@ -1,15 +1,15 @@
-package com.example.pokeme.repository
+package com.example.pokeme.repository.implementation
 
+import com.example.pokeme.repository.UserRepository
 import com.example.pokeme.utils.Result
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.ktx.Firebase
 import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
 
-class UserRepositoryFirebase @Inject constructor(
+class UserRepositoryImpl @Inject constructor(
     val authService: FirebaseAuth
     ) : UserRepository {
 
