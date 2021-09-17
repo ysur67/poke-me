@@ -51,8 +51,8 @@ class RegisterFragment : BaseAuthFragment() {
                 binding.editPassword,
                 binding.editPasswordRepeat
             )
-            val isFormValid = userViewModel.isFormValid(form)
-            if (!isFormValid) {
+            form.validate()
+            if (!form.isValid) {
                 displayErrors(form.errors)
                 return@setOnClickListener
             }

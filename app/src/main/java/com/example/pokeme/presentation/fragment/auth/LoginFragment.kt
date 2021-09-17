@@ -45,8 +45,8 @@ class LoginFragment : BaseAuthFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.loginButton.setOnClickListener{
             val form = LoginForm(binding.editEmail, binding.editPassword)
-            val isFormValid = userViewModel.isFormValid(form)
-            if (!isFormValid) {
+            form.validate()
+            if (!form.isValid) {
                 displayErrors(form.errors)
                 return@setOnClickListener
             }

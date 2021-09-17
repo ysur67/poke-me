@@ -55,16 +55,6 @@ class UserViewModel @Inject constructor(
         _currentUser.postValue(null)
     }
 
-    fun isFormValid(form: RegisterForm) : Boolean {
-        form.validate()
-        return form.isValid
-    }
-
-    fun isFormValid(form: LoginForm) : Boolean {
-        form.validate()
-        return form.isValid
-    }
-
     private fun onUserAuth(result: Result<FirebaseUser>) {
         when (result) {
             is Result.Success -> {
