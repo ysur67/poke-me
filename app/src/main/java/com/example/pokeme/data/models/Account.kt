@@ -2,6 +2,8 @@ package com.example.pokeme.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
+import kotlin.collections.HashMap
 
 @Entity(
     tableName = "account"
@@ -14,6 +16,10 @@ data class Account(
     companion object {
         fun getDefaultUsername(email: String) : String {
             return email.split("@")[0]
+        }
+
+        fun generateRandomId() : String {
+            return UUID.randomUUID().toString()
         }
     }
 

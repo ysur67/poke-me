@@ -22,7 +22,7 @@ class AccountRepositoryImpl @Inject constructor(
             connection.collection(ACCOUNT_COLLECTION).document(email).get()
                 .addOnSuccessListener {
                     val username = it.getStringOrEmpty("username")
-                    emitter.onNext(Result.Success(Account(email, username)))
+                    emitter.onNext(Result.Success(Account(it.id, email, username)))
                 }
                 .addOnFailureListener {
                     emitter.onError(it)
@@ -47,7 +47,7 @@ class AccountRepositoryImpl @Inject constructor(
                     if (snapshot.isNotEmpty) {
                         for (document in snapshot!!) {
                             val email = document.getStringOrEmpty("secondAccount")
-                            friends.add(Account(email, ""))
+                            friends.add(Account(document.id, email, ""))
                         }
                     }
                     it.onNext(Result.Success(friends))
