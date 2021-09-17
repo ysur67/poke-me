@@ -16,26 +16,8 @@ import dagger.Provides
 import javax.inject.Singleton
 
 
-@Module
+@Module(includes = [DataSourceModule::class])
 class RepositoryModule {
-
-    @Provides
-    @Singleton
-    fun provideFirestore() : FirebaseFirestore {
-        return Firebase.firestore
-    }
-
-    @Provides
-    @Singleton
-    fun provideFirebaseMessaging() : FirebaseMessaging {
-        return FirebaseMessaging.getInstance()
-    }
-
-    @Provides
-    @Singleton
-    fun provideFirebaseAuth() : FirebaseAuth {
-        return FirebaseAuth.getInstance()
-    }
 
     @Provides
     @Singleton
