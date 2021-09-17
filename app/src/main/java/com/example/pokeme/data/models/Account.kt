@@ -1,6 +1,13 @@
 package com.example.pokeme.data.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(
+    tableName = "account"
+)
 data class Account(
+    @PrimaryKey val id: String,
     val email: String,
     val username: String,
 ) {
