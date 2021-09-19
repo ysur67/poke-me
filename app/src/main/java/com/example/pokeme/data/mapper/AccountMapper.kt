@@ -15,6 +15,6 @@ fun Account.Companion.toAccount(user: FirebaseUser) : Account {
 fun Account.Companion.toAccount(document: DocumentSnapshot) : Account {
     val username = document.getStringOrEmpty("username")
     val email = document.getString("email")
-        ?: throw NullPointerException("There is no email for this user, check firestore")
+        ?: throw NullPointerException("There is no email for this user ${document.id}, check firestore")
     return Account(document.id, email, username)
 }
