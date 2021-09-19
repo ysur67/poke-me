@@ -50,10 +50,11 @@ class ProfileSettingsFragment : Fragment() {
         }
         binding.save.setOnClickListener{
             val newAccount = Account(
+                Account.generateRandomId(),
                 accountViewModel.account.value!!.email,
                 binding.editUsername.text.toString()
             )
-            accountViewModel.updateAccount(newAccount)
+            accountViewModel.getAccountFromRemote(newAccount)
         }
     }
 

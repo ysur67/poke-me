@@ -13,8 +13,7 @@ import com.example.pokeme.R
 import com.example.pokeme.databinding.ActivityMainBinding
 import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.AccountViewModel
-import com.example.pokeme.domain.UserViewModel
-import com.example.pokeme.data.repository.implementation.MessagesRepositoryImpl
+import com.example.pokeme.domain.AuthViewModel
 import com.example.pokeme.domain.MessageViewModel
 import javax.inject.Inject
 
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val userViewModel: UserViewModel by viewModels { viewModelFactory }
+    private val authViewModel: AuthViewModel by viewModels { viewModelFactory }
     private val accountViewModel: AccountViewModel by viewModels { viewModelFactory }
     private val messageViewModel: MessageViewModel by viewModels { viewModelFactory }
 
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.fragmentContainerView)
         binding.bottomNavigation.setupWithNavController(navController)
 
-        userViewModel.user.observe(this, {
+        authViewModel.user.observe(this, {
             if (it == null) {
                 Intent(this, AuthActivity::class.java).apply {
                     startActivity(this)
@@ -46,9 +45,9 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
         })
-        val currentUser = userViewModel.user.value ?: return
-        accountViewModel.updateAccountByUser(currentUser)
-        messageViewModel.updateToken(currentUser.email!!)
+        val currentUser = authViewModel.user.value ?: return
+        accountViewModel.getAccountFromRemote(currentUser)
+        messageViewModel.updateToken(currentUser.email)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -59,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.logoutOption -> {
-                userViewModel.logout()
+                authViewModel.logout()
             }
         }
         return super.onOptionsItemSelected(item)

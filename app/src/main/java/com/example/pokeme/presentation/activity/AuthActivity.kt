@@ -10,14 +10,14 @@ import com.example.pokeme.App
 import com.example.pokeme.R
 import com.example.pokeme.databinding.ActivityAuthBinding
 import com.example.pokeme.di.ViewModelFactory
-import com.example.pokeme.domain.UserViewModel
+import com.example.pokeme.domain.AuthViewModel
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import javax.inject.Inject
 
 class AuthActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel: UserViewModel by viewModels{ viewModelFactory }
+    private val viewModel: AuthViewModel by viewModels{ viewModelFactory }
 
     private lateinit var binding: ActivityAuthBinding
 

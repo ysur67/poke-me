@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.pokeme.App
 import com.example.pokeme.databinding.FragmentLoginBinding
 import com.example.pokeme.di.ViewModelFactory
-import com.example.pokeme.domain.UserViewModel
+import com.example.pokeme.domain.AuthViewModel
 import com.example.pokeme.presentation.form.LoginForm
 import javax.inject.Inject
 
@@ -25,7 +25,7 @@ class LoginFragment : BaseAuthFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val userViewModel: UserViewModel by activityViewModels { viewModelFactory }
+    private val authViewModel: AuthViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,12 +50,12 @@ class LoginFragment : BaseAuthFragment() {
                 displayErrors(form.errors)
                 return@setOnClickListener
             }
-            userViewModel.loginUser(form.userEmail, binding.editPassword.text.toString())
+            authViewModel.loginUser(form.userEmail, binding.editPassword.text.toString())
         }
 
-        userViewModel.isLoading.observe(viewLifecycleOwner, { onLoading(it) })
+        authViewModel.isLoading.observe(viewLifecycleOwner, { onLoading(it) })
 
-        userViewModel.exception.observe(viewLifecycleOwner, { if (it != null) onError(it) })
+        authViewModel.exception.observe(viewLifecycleOwner, { if (it != null) onError(it) })
     }
 
     override fun onDestroy() {
