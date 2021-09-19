@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.pokeme.App
 import com.example.pokeme.R
 import com.example.pokeme.databinding.FragmentProfileBinding
@@ -37,6 +38,15 @@ class ProfileFragment : Fragment() {
     ): View {
         _binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val navController = findNavController()
+        binding.accountUsername.text = accountViewModel.account.value?.username ?: "No data"
+        binding.changeAccountInfoButton.setOnClickListener {
+            navController.navigate(R.id.action_profileFragment_to_profileSettingsFragment)
+        }
     }
 
     override fun onDestroy() {
