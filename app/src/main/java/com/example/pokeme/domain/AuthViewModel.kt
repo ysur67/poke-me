@@ -13,11 +13,8 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val authRepo: AuthRepository
     ): BaseViewModel() {
-    companion object {
-        const val DEBUG_CODE = "USER_VIEW_MODEL"
-    }
-    private val _currentUser: MutableLiveData<Account> = MutableLiveData(authRepo.currentAccount)
 
+    private val _currentUser: MutableLiveData<Account> = MutableLiveData(authRepo.currentAccount)
     val user: LiveData<Account>
         get() = _currentUser
 
@@ -62,5 +59,9 @@ class AuthViewModel @Inject constructor(
             is Result.Error -> { currentException = result.ex }
         }
         loading = false
+    }
+
+    companion object {
+        const val DEBUG_CODE = "USER_VIEW_MODEL"
     }
 }
