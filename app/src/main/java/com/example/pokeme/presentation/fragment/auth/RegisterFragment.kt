@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.pokeme.App
 import com.example.pokeme.databinding.FragmentRegisterBinding
 import com.example.pokeme.di.ViewModelFactory
-import com.example.pokeme.domain.UserViewModel
+import com.example.pokeme.domain.AuthViewModel
 import com.example.pokeme.presentation.form.RegisterForm
 import javax.inject.Inject
 
@@ -24,7 +24,7 @@ class RegisterFragment : BaseAuthFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val userViewModel: UserViewModel by activityViewModels { viewModelFactory }
+    private val authViewModel: AuthViewModel by activityViewModels { viewModelFactory }
 
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
@@ -56,11 +56,11 @@ class RegisterFragment : BaseAuthFragment() {
                 displayErrors(form.errors)
                 return@setOnClickListener
             }
-            userViewModel.createUser(form.userEmail, binding.editPassword.text.toString())
+            authViewModel.createUser(form.userEmail, binding.editPassword.text.toString())
         }
 
-        userViewModel.isLoading.observe(viewLifecycleOwner, { onLoading(it) })
-        userViewModel.exception.observe(viewLifecycleOwner, { onError(it) })
+        authViewModel.isLoading.observe(viewLifecycleOwner, { onLoading(it) })
+        authViewModel.exception.observe(viewLifecycleOwner, { onError(it) })
     }
 
     override fun onDestroy() {
