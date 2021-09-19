@@ -11,7 +11,7 @@ import kotlin.collections.HashMap
 data class Account(
     @PrimaryKey val id: String,
     val email: String,
-    val username: String,
+    private var _username: String,
 ) {
     companion object {
         fun getDefaultUsername(email: String) : String {
@@ -23,10 +23,16 @@ data class Account(
         }
     }
 
+    val username get() = _username
+
     fun toHashMap() : HashMap<String, String> {
         return hashMapOf(
             "email" to email,
-            "username" to username
+            "username" to _username
         )
+    }
+
+    fun setDefaultUsername() {
+        _username = getDefaultUsername(email)
     }
 }
