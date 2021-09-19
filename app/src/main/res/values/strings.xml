@@ -23,4 +23,5 @@
     <string name="logout">Logout</string>
     <string name="auth_invalid">Проверьте введенные данные</string>
     <string name="user_doesnot_exist">Пользователя не существует</string>
+    <string name="change_account_info">Change account info</string>
 </resources>
