@@ -11,19 +11,13 @@ import kotlin.collections.HashMap
 data class Account(
     @PrimaryKey val id: String,
     val email: String,
-    private var _username: String,
+    val username: String,
 ) {
-
-    val username get() = _username
     fun toHashMap() : HashMap<String, String> {
         return hashMapOf(
             "email" to email,
-            "username" to _username
+            "username" to username
         )
-    }
-
-    fun setDefaultUsername() {
-        _username = getDefaultUsername(email)
     }
 
     companion object {
