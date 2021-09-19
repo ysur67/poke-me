@@ -35,5 +35,5 @@ abstract class ViewModelModule {
     @Singleton
     @IntoMap
     @ViewModelKey(MessageViewModel::class)
-    abstract fun bindMessageViewModel(viewModel: UserViewModel) : ViewModel
+    abstract fun bindMessageViewModel(viewModel: MessageViewModel) : ViewModel
 }
