@@ -13,18 +13,8 @@ data class Account(
     val email: String,
     private var _username: String,
 ) {
-    companion object {
-        fun getDefaultUsername(email: String) : String {
-            return email.split("@")[0]
-        }
-
-        fun generateRandomId() : String {
-            return UUID.randomUUID().toString()
-        }
-    }
 
     val username get() = _username
-
     fun toHashMap() : HashMap<String, String> {
         return hashMapOf(
             "email" to email,
@@ -34,5 +24,15 @@ data class Account(
 
     fun setDefaultUsername() {
         _username = getDefaultUsername(email)
+    }
+
+    companion object {
+        fun getDefaultUsername(email: String) : String {
+            return email.split("@")[0]
+        }
+
+        fun generateRandomId() : String {
+            return UUID.randomUUID().toString()
+        }
     }
 }
