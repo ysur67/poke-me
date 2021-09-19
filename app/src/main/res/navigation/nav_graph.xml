@@ -6,7 +6,7 @@
     app:startDestination="@id/friendListFragment">
     <fragment
         android:id="@+id/profileSettingsFragment"
-        android:name="com.example.pokeme.presentation.fragment.ProfileSettingsFragment"
+        android:name="com.example.pokeme.presentation.fragment.profile.ProfileSettingsFragment"
         android:label="fragment_profile_settings"
         tools:layout="@layout/fragment_profile_settings" />
     <fragment
@@ -16,12 +16,12 @@
         tools:layout="@layout/fragment_pokes" />
     <fragment
         android:id="@+id/friendListFragment"
-        android:name="com.example.pokeme.presentation.fragment.FriendListFragment"
+        android:name="com.example.pokeme.presentation.fragment.profile.FriendListFragment"
         android:label="fragment_friend_list"
         tools:layout="@layout/fragment_friend_list" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.pokeme.presentation.fragment.ProfileFragment"
+        android:name="com.example.pokeme.presentation.fragment.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action

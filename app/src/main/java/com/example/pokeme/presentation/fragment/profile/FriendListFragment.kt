@@ -1,17 +1,13 @@
-package com.example.pokeme.presentation.fragment
+package com.example.pokeme.presentation.fragment.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.animation.core.animateDpAsState
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeme.App
-import com.example.pokeme.R
-import com.example.pokeme.data.models.Account
 import com.example.pokeme.databinding.FragmentFriendListBinding
 import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.AccountViewModel

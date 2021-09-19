@@ -1,4 +1,4 @@
-package com.example.pokeme.presentation.fragment
+package com.example.pokeme.presentation.fragment.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
