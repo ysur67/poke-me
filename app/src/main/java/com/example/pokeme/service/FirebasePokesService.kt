@@ -9,7 +9,6 @@ import androidx.core.app.NotificationManagerCompat
 import com.example.pokeme.App
 import com.example.pokeme.R
 import com.example.pokeme.data.repository.MessageRepository
-import com.example.pokeme.data.repository.implementation.MessagesRepositoryImpl
 import com.example.pokeme.data.repository.UserRepository
 import com.example.pokeme.utils.Const
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -29,7 +28,7 @@ class FirebasePokesService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        val email = userRepo.user?.email ?: token
+        val email = userRepo.currentAccount?.email ?: token
         messageRepo.registerToken(email, token)
     }
 
