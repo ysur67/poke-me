@@ -46,7 +46,11 @@ class FriendListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.recyclerView.layoutManager = LinearLayoutManager(
+            activity,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
         friendsRecyclerAdapter = FriendsRecyclerAdapter(ArrayList())
         binding.recyclerView.adapter = friendsRecyclerAdapter
 
@@ -54,9 +58,6 @@ class FriendListFragment : Fragment() {
         accountViewModel.friends.observe(viewLifecycleOwner, {
             if (it == null) return@observe
             friendsRecyclerAdapter.add(it)
-        })
-        accountViewModel.isLoading.observe(viewLifecycleOwner, {
-            print(it)
         })
     }
 

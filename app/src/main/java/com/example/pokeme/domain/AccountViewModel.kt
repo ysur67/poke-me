@@ -49,7 +49,9 @@ class AccountViewModel @Inject constructor(
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe {
-
+                when (it) {
+                    is Result.Success -> _friends.postValue(it.data as ArrayList<Account>)
+                }
             }
     }
 
