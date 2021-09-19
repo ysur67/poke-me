@@ -54,7 +54,7 @@ class ProfileSettingsFragment : Fragment() {
                 accountViewModel.account.value!!.email,
                 binding.editUsername.text.toString()
             )
-            accountViewModel.updateAccount(newAccount)
+            accountViewModel.getAccountFromRemote(newAccount)
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.pokeme.data.repository.implementation
 
 
+import com.example.pokeme.data.mapper.toAccount
 import com.example.pokeme.data.models.Account
 import com.example.pokeme.data.repository.AccountRepository
 import com.example.pokeme.utils.Result
@@ -16,13 +17,12 @@ class AccountRepositoryImpl @Inject constructor(
     private val connection: FirebaseFirestore
     ) : AccountRepository {
 
-    override fun getOrCreateAccount(user: FirebaseUser) : Observable<Result<Account>> {
-        val email = user.email!!
+    override fun getOrCreateAccount(account: Account) : Observable<Result<Account>> {
+        val email = account.email
         return Observable.create{ emitter ->
             connection.collection(ACCOUNT_COLLECTION).document(email).get()
-                .addOnSuccessListener {
-                    val username = it.getStringOrEmpty("username")
-                    emitter.onNext(Result.Success(Account(it.id, email, username)))
+                .addOnSuccessListener { document ->
+                    emitter.onNext(Result.Success(Account.toAccount(document)))
                 }
                 .addOnFailureListener {
                     emitter.onError(it)
@@ -43,6 +43,7 @@ class AccountRepositoryImpl @Inject constructor(
                         it.onError(error)
                         return@addSnapshotListener
                     }
+                    // TODO: Поправить
                     val friends = ArrayList<Account>()
                     if (snapshot.isNotEmpty) {
                         for (document in snapshot!!) {
@@ -53,6 +54,10 @@ class AccountRepositoryImpl @Inject constructor(
                     it.onNext(Result.Success(friends))
                 }
         }
+    }
+
+    override fun save(account: Account) {
+        connection.collection(ACCOUNT_COLLECTION).document(account.email).set(account.toHashMap())
     }
 
     companion object {

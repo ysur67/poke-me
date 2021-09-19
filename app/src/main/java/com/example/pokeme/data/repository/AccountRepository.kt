@@ -10,4 +10,5 @@ interface AccountRepository {
     fun getOrCreateAccount(account: Account) : Observable<Result<Account>>
     fun updateDocument(id: String, fields: HashMap<String, String>)
     fun getFriends(account: Account) : Observable<Result<List<Account>>>
+    fun save(account: Account)
 }

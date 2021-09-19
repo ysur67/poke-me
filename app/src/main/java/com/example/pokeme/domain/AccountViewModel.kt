@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.pokeme.data.models.Account
 import com.example.pokeme.data.repository.AccountRepository
 import com.example.pokeme.utils.Result
-import com.google.firebase.auth.FirebaseUser
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
@@ -23,7 +22,7 @@ class AccountViewModel @Inject constructor(
     val friends: LiveData<ArrayList<Account>>
         get() = _friends
 
-    fun updateAccount(account: Account) {
+    fun getAccountFromRemote(account: Account) {
         loading = true
         accountRepo.getOrCreateAccount(account)
             .observeOn(Schedulers.io())
@@ -31,33 +30,37 @@ class AccountViewModel @Inject constructor(
             .doOnError {
                 currentException = it as Exception
             }
-            .subscribe{
+            .subscribe {
                 when (it) {
-                    is Result.Success -> {
-                        _currentAccount.postValue(it.data)
-                        loading = false
-                    }
-                    is Result.Error -> {
-                        currentException = it.ex
-                    }
+                    is Result.Success -> onAccountRetrieved(it.data)
+                    is Result.Error -> currentException = it.ex
                 }
             }
     }
-
-//    fun updateAccount(account: Account) {
-//        loading = true
-//        accountRepo.updateDocument(account.email, account.toHashMap())
-//        _currentAccount.postValue(account)
-//        loading = false
-//    }
 
     fun updateFriends() {
         val currentAccount = _currentAccount.value ?: return
         accountRepo.getFriends(currentAccount)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
-            .subscribe{
+            .subscribe {
 
             }
+    }
+
+    private fun onAccountRetrieved(account: Account) {
+        var newAccount = account
+        // If user was logged in currently and didn't set any username
+        // we should set default username for him
+        if (newAccount.username.isEmpty()) {
+            newAccount = Account(
+                account.id,
+                account.email,
+                Account.getDefaultUsername(account.email)
+            )
+            accountRepo.save(newAccount)
+        }
+        _currentAccount.postValue(newAccount)
+        loading = false
     }
 }

@@ -46,8 +46,8 @@ class MainActivity : AppCompatActivity() {
             }
         })
         val currentUser = userViewModel.user.value ?: return
-        accountViewModel.updateAccount(currentUser)
-        messageViewModel.updateToken(currentUser.email!!)
+        accountViewModel.getAccountFromRemote(currentUser)
+        messageViewModel.updateToken(currentUser.email)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
