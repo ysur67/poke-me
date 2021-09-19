@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.core.Observable
 import kotlin.collections.HashMap
 
 interface AccountRepository {
-    fun getOrCreateAccount(user: FirebaseUser) : Observable<Result<Account>>
+    fun getOrCreateAccount(account: Account) : Observable<Result<Account>>
     fun updateDocument(id: String, fields: HashMap<String, String>)
     fun getFriends(account: Account) : Observable<Result<List<Account>>>
 }

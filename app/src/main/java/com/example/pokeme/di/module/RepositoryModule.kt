@@ -3,13 +3,11 @@ package com.example.pokeme.di.module
 import com.example.pokeme.data.repository.AccountRepository
 import com.example.pokeme.data.repository.MessageRepository
 import com.example.pokeme.data.repository.implementation.AccountRepositoryImpl
-import com.example.pokeme.data.repository.implementation.UserRepositoryImpl
-import com.example.pokeme.data.repository.UserRepository
+import com.example.pokeme.data.repository.implementation.AuthRepositoryImpl
+import com.example.pokeme.data.repository.AuthRepository
 import com.example.pokeme.data.repository.implementation.MessagesRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.Module
 import dagger.Provides
@@ -27,8 +25,8 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideUserRepository(firebaseAuth: FirebaseAuth) : UserRepository {
-        return UserRepositoryImpl(firebaseAuth)
+    fun provideUserRepository(firebaseAuth: FirebaseAuth) : AuthRepository {
+        return AuthRepositoryImpl(firebaseAuth)
     }
 
     @Provides

@@ -14,7 +14,6 @@ import com.example.pokeme.databinding.ActivityMainBinding
 import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.AccountViewModel
 import com.example.pokeme.domain.UserViewModel
-import com.example.pokeme.data.repository.implementation.MessagesRepositoryImpl
 import com.example.pokeme.domain.MessageViewModel
 import javax.inject.Inject
 
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
         val currentUser = userViewModel.user.value ?: return
-        accountViewModel.updateAccountByUser(currentUser)
+        accountViewModel.updateAccount(currentUser)
         messageViewModel.updateToken(currentUser.email!!)
     }
 

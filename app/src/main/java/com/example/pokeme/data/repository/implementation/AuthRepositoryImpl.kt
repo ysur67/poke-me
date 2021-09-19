@@ -2,18 +2,17 @@ package com.example.pokeme.data.repository.implementation
 
 import com.example.pokeme.data.mapper.toAccount
 import com.example.pokeme.data.models.Account
-import com.example.pokeme.data.repository.UserRepository
+import com.example.pokeme.data.repository.AuthRepository
 import com.example.pokeme.utils.Result
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
-import com.google.firebase.auth.FirebaseUser
 import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
 
-class UserRepositoryImpl @Inject constructor(
+class AuthRepositoryImpl @Inject constructor(
     val authService: FirebaseAuth
-    ) : UserRepository {
+    ) : AuthRepository {
 
     override val currentAccount: Account?
         get() {

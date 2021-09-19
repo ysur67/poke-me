@@ -23,9 +23,9 @@ class AccountViewModel @Inject constructor(
     val friends: LiveData<ArrayList<Account>>
         get() = _friends
 
-    fun updateAccountByUser(user: FirebaseUser) {
+    fun updateAccount(account: Account) {
         loading = true
-        accountRepo.getOrCreateAccount(user)
+        accountRepo.getOrCreateAccount(account)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
             .doOnError {
@@ -44,12 +44,12 @@ class AccountViewModel @Inject constructor(
             }
     }
 
-    fun updateAccount(account: Account) {
-        loading = true
-        accountRepo.updateDocument(account.email, account.toHashMap())
-        _currentAccount.postValue(account)
-        loading = false
-    }
+//    fun updateAccount(account: Account) {
+//        loading = true
+//        accountRepo.updateDocument(account.email, account.toHashMap())
+//        _currentAccount.postValue(account)
+//        loading = false
+//    }
 
     fun updateFriends() {
         val currentAccount = _currentAccount.value ?: return
