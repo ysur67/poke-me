@@ -22,6 +22,11 @@ class AccountViewModel @Inject constructor(
     val friends: LiveData<ArrayList<Account>>
         get() = _friends
 
+    fun updateAccount(account: Account) {
+        accountRepo.updateDocument(account.email, account.toHashMap())
+        _currentAccount.postValue(account)
+    }
+
     fun getAccountFromRemote(account: Account) {
         loading = true
         accountRepo.getOrCreateAccount(account)

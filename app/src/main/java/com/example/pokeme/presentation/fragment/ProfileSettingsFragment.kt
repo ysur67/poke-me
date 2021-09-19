@@ -11,6 +11,7 @@ import com.example.pokeme.data.models.Account
 import com.example.pokeme.databinding.FragmentProfileSettingsBinding
 import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.AccountViewModel
+import java.lang.NullPointerException
 import javax.inject.Inject
 
 
@@ -49,12 +50,14 @@ class ProfileSettingsFragment : Fragment() {
             setUsername(accountViewModel.account.value?.username)
         }
         binding.save.setOnClickListener{
+            val currentAccount = accountViewModel.account.value
+                ?: throw NullPointerException("There is no account in account view model")
             val newAccount = Account(
-                Account.generateRandomId(),
-                accountViewModel.account.value!!.email,
+                currentAccount.id,
+                currentAccount.email,
                 binding.editUsername.text.toString()
             )
-            accountViewModel.getAccountFromRemote(newAccount)
+            accountViewModel.updateAccount(newAccount)
         }
     }
 
