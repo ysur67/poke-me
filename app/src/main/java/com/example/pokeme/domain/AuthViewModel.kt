@@ -16,7 +16,7 @@ class AuthViewModel @Inject constructor(
     companion object {
         const val DEBUG_CODE = "USER_VIEW_MODEL"
     }
-    private val _currentUser: MutableLiveData<Account> = MutableLiveData(null)
+    private val _currentUser: MutableLiveData<Account> = MutableLiveData(authRepo.currentAccount)
 
     val user: LiveData<Account>
         get() = _currentUser
