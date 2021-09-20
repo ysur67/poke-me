@@ -10,6 +10,9 @@ import com.example.pokeme.utils.firebase.isNotEmpty
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.rxjava3.core.Observable
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.sendBlocking
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -36,23 +39,22 @@ class AccountRepositoryImpl @Inject constructor(
         connection.collection(ACCOUNT_COLLECTION).document(id).set(fields)
     }
 
-    override suspend fun getFriends(account: Account) : Result<List<Account>> {
+    override suspend fun getFriends(account: Account): Result<List<Account>> {
+        // TODO: make it better
         lateinit var result: Result<List<Account>>
         connection.collection(FRIENDS_COLLECTION).whereEqualTo("firstAccount", account.email)
-            .addSnapshotListener { snapshot, error ->
-                if (error != null) {
-                    result = Result.Error(error)
-                    return@addSnapshotListener
-                }
-                val friends = ArrayList<Account>()
-                if (snapshot.isNotEmpty) {
-                    for (document in snapshot!!) {
-                        val email = document.getStringOrEmpty("secondAccount")
-                        friends.add(Account(document.id, email, ""))
+                .get()
+                .addOnSuccessListener {
+                    if (it.isNotEmpty) {
+                        val friends = ArrayList<Account>()
+                        it?.map {
+                            val email = it.getStringOrEmpty("secondAccount")
+                            friends.add(Account(it.id, email, ""))
+                        }
+                        result = Result.Success(friends)
                     }
                 }
-                result = Result.Success(friends)
-            }
+                .await()
         return result
     }
 
