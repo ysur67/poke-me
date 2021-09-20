@@ -63,7 +63,6 @@ class AccountViewModel @Inject constructor(
             accountRepo.save(newAccount)
         }
         _currentAccount.postValue(newAccount)
-        updateFriends()
         loading = false
     }
 }

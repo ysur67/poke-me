@@ -53,7 +53,13 @@ class FriendListFragment : Fragment() {
         friendsRecyclerAdapter = FriendsRecyclerAdapter(ArrayList())
         binding.recyclerView.adapter = friendsRecyclerAdapter
 
-//        accountViewModel.updateFriends()
+        accountViewModel.account.observe(viewLifecycleOwner, {
+            // as soon as we know that there is existing account for this user
+            // we want to load his friends
+            if (it != null) {
+                accountViewModel.updateFriends()
+            }
+        })
         accountViewModel.friends.observe(viewLifecycleOwner, {
             if (it == null) return@observe
             friendsRecyclerAdapter.add(it)
