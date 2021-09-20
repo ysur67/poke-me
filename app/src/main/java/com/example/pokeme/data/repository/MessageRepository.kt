@@ -7,6 +7,6 @@ interface MessageRepository {
 
     fun registerToken(key: String, value: String)
     fun updateToken(key: String)
-    fun getToken(email: String) : Observable<Result<String>>
+    suspend fun getToken(email: String) : Result<String>
     fun sendMessage(title: String, text: String, toToken: String)
 }
