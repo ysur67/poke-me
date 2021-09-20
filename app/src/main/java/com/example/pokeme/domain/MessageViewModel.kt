@@ -1,9 +1,12 @@
 package com.example.pokeme.domain
 
+import androidx.lifecycle.viewModelScope
 import com.example.pokeme.data.repository.MessageRepository
 import com.example.pokeme.utils.Result
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.launch
+import java.lang.NullPointerException
 import javax.inject.Inject
 
 
@@ -13,18 +16,13 @@ class MessageViewModel @Inject constructor(
 
     fun sendMessage(email: String, title: String, body: String) {
         loading = true
-        messageRepo.getToken(email)
-            .observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                currentException = it as Exception
+        viewModelScope.launch {
+            when (val result = messageRepo.getToken(email)) {
+                is Result.Success -> messageRepo.sendMessage(title, body, result.data)
+                is Result.Error -> throw NullPointerException("There is no token with email $email")
             }
-            .subscribe {
-                if (it is Result.Success) {
-                    messageRepo.sendMessage(title, body, it.data)
-                }
-            }
-        loading = false
+            loading = false
+        }
     }
 
     fun updateToken(email: String) {

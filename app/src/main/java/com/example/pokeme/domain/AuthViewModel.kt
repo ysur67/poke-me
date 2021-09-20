@@ -2,12 +2,14 @@ package com.example.pokeme.domain
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.pokeme.data.models.Account
 import com.example.pokeme.utils.Result
 import com.example.pokeme.data.repository.AuthRepository
 import com.google.firebase.auth.FirebaseUser
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(
@@ -20,28 +22,16 @@ class AuthViewModel @Inject constructor(
 
     fun createUser(email: String, password: String) {
         loading = true
-        authRepo.register(email, password)
-            .observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                currentException = it as Exception
-            }
-            .subscribe {
-                onUserAuth(it)
-            }
+        viewModelScope.launch {
+            onUserAuth(authRepo.register(email, password))
+        }
     }
 
     fun loginUser(email: String, password: String) {
         loading = true
-        authRepo.login(email, password)
-            .observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                currentException = it as Exception
-            }
-            .subscribe {
-                onUserAuth(it)
-            }
+        viewModelScope.launch {
+            onUserAuth(authRepo.login(email, password))
+        }
     }
 
     fun logout() {
