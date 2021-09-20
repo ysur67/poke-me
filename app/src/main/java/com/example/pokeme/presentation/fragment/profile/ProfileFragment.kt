@@ -50,6 +50,7 @@ class ProfileFragment : Fragment() {
         binding.changeAccountInfoButton.setOnClickListener {
             navController.navigate(R.id.action_profileFragment_to_profileSettingsFragment)
         }
+        binding.imageView.setImageResource(R.drawable.account_image_placeholder)
     }
 
     override fun onDestroy() {
