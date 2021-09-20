@@ -1,4 +1,4 @@
-package com.example.pokeme.presentation.fragment
+package com.example.pokeme.presentation.fragment.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,26 +6,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.pokeme.App
-import com.example.pokeme.data.models.Account
-import com.example.pokeme.databinding.FragmentProfileSettingsBinding
+import com.example.pokeme.R
+import com.example.pokeme.databinding.FragmentProfileBinding
 import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.AccountViewModel
 import javax.inject.Inject
 
-
 /**
  * A simple [Fragment] subclass.
- * Use the [ProfileSettingsFragment.newInstance] factory method to
+ * Use the [ProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProfileSettingsFragment : Fragment() {
-
+class ProfileFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val accountViewModel: AccountViewModel by activityViewModels { viewModelFactory }
 
-    private var _binding: FragmentProfileSettingsBinding? = null
+    private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,31 +35,26 @@ class ProfileSettingsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentProfileSettingsBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        _binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUsername(accountViewModel.account.value?.username)
-        binding.reset.setOnClickListener{
-            setUsername(accountViewModel.account.value?.username)
-        }
-        binding.save.setOnClickListener{
-            val newAccount = Account(
-                Account.generateRandomId(),
-                accountViewModel.account.value!!.email,
-                binding.editUsername.text.toString()
-            )
-            accountViewModel.getAccountFromRemote(newAccount)
+        val navController = findNavController()
+        accountViewModel.account.observe(viewLifecycleOwner, {
+            binding.accountUsername.text = it?.username ?: "No data"
+        })
+        binding.changeAccountInfoButton.setOnClickListener {
+            navController.navigate(R.id.action_profileFragment_to_profileSettingsFragment)
         }
     }
 
-    private fun setUsername(value: String?) {
-        binding.editUsername.setText(value ?: "")
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     companion object {
@@ -67,9 +62,9 @@ class ProfileSettingsFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment.
          *
-         * @return A new instance of fragment ProfileSettingsFragment.
+         * @return A new instance of fragment ProfileFragment.
          */
         @JvmStatic
-        fun newInstance() = ProfileSettingsFragment()
+        fun newInstance() = ProfileFragment()
     }
 }

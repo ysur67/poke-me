@@ -22,6 +22,11 @@ class AccountViewModel @Inject constructor(
     val friends: LiveData<ArrayList<Account>>
         get() = _friends
 
+    fun updateAccount(account: Account) {
+        accountRepo.updateDocument(account.email, account.toHashMap())
+        _currentAccount.postValue(account)
+    }
+
     fun getAccountFromRemote(account: Account) {
         loading = true
         accountRepo.getOrCreateAccount(account)
@@ -44,7 +49,9 @@ class AccountViewModel @Inject constructor(
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe {
-
+                when (it) {
+                    is Result.Success -> _friends.postValue(it.data as ArrayList<Account>)
+                }
             }
     }
 
@@ -61,6 +68,7 @@ class AccountViewModel @Inject constructor(
             accountRepo.save(newAccount)
         }
         _currentAccount.postValue(newAccount)
+        updateFriends()
         loading = false
     }
 }

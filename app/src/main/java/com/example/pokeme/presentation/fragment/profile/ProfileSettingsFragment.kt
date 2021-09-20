@@ -1,37 +1,32 @@
-package com.example.pokeme.presentation.fragment
+package com.example.pokeme.presentation.fragment.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.animation.core.animateDpAsState
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeme.App
-import com.example.pokeme.R
 import com.example.pokeme.data.models.Account
-import com.example.pokeme.databinding.FragmentFriendListBinding
+import com.example.pokeme.databinding.FragmentProfileSettingsBinding
 import com.example.pokeme.di.ViewModelFactory
 import com.example.pokeme.domain.AccountViewModel
-import com.example.pokeme.presentation.adapter.FriendsRecyclerAdapter
+import java.lang.NullPointerException
 import javax.inject.Inject
 
 
 /**
  * A simple [Fragment] subclass.
- * Use the [FriendListFragment.newInstance] factory method to
+ * Use the [ProfileSettingsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FriendListFragment : Fragment() {
+class ProfileSettingsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val accountViewModel: AccountViewModel by activityViewModels { viewModelFactory }
-    private lateinit var friendsRecyclerAdapter: FriendsRecyclerAdapter
 
-    private var _binding: FragmentFriendListBinding? = null
+    private var _binding: FragmentProfileSettingsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,25 +38,31 @@ class FriendListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFriendListBinding.inflate(inflater, container, false)
+        _binding = FragmentProfileSettingsBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        friendsRecyclerAdapter = FriendsRecyclerAdapter(ArrayList())
-        binding.recyclerView.adapter = friendsRecyclerAdapter
+        setUsername(accountViewModel.account.value?.username)
+        binding.reset.setOnClickListener{
+            setUsername(accountViewModel.account.value?.username)
+        }
+        binding.save.setOnClickListener{
+            val currentAccount = accountViewModel.account.value
+                ?: throw NullPointerException("There is no account in account view model")
+            val newAccount = Account(
+                currentAccount.id,
+                currentAccount.email,
+                binding.editUsername.text.toString()
+            )
+            accountViewModel.updateAccount(newAccount)
+        }
+    }
 
-        accountViewModel.updateFriends()
-        accountViewModel.friends.observe(viewLifecycleOwner, {
-            if (it == null) return@observe
-            friendsRecyclerAdapter.add(it)
-        })
-        accountViewModel.isLoading.observe(viewLifecycleOwner, {
-            print(it)
-        })
+    private fun setUsername(value: String?) {
+        binding.editUsername.setText(value ?: "")
     }
 
     companion object {
@@ -69,9 +70,9 @@ class FriendListFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment.
          *
-         * @return A new instance of fragment FriendListFragment.
+         * @return A new instance of fragment ProfileSettingsFragment.
          */
         @JvmStatic
-        fun newInstance() = FriendListFragment()
+        fun newInstance() = ProfileSettingsFragment()
     }
 }

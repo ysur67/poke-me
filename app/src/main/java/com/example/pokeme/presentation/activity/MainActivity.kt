@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.pokeme.App
 import com.example.pokeme.R
@@ -34,9 +35,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navController = findNavController(R.id.fragmentContainerView)
-        binding.bottomNavigation.setupWithNavController(navController)
-
         authViewModel.user.observe(this, {
             if (it == null) {
                 Intent(this, AuthActivity::class.java).apply {
@@ -48,6 +46,11 @@ class MainActivity : AppCompatActivity() {
         val currentUser = authViewModel.user.value ?: return
         accountViewModel.getAccountFromRemote(currentUser)
         messageViewModel.updateToken(currentUser.email)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
+                as NavHostFragment
+        val navController = navHostFragment.navController
+        binding.bottomNavigation.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

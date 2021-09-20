@@ -5,9 +5,10 @@ import com.example.pokeme.di.module.RepositoryModule
 import com.example.pokeme.di.module.ViewModelModule
 import com.example.pokeme.presentation.activity.AuthActivity
 import com.example.pokeme.presentation.activity.MainActivity
-import com.example.pokeme.presentation.fragment.FriendListFragment
+import com.example.pokeme.presentation.fragment.profile.FriendListFragment
 import com.example.pokeme.presentation.fragment.PokesFragment
-import com.example.pokeme.presentation.fragment.ProfileSettingsFragment
+import com.example.pokeme.presentation.fragment.profile.ProfileFragment
+import com.example.pokeme.presentation.fragment.profile.ProfileSettingsFragment
 import com.example.pokeme.presentation.fragment.auth.LoginFragment
 import com.example.pokeme.presentation.fragment.auth.RegisterFragment
 import com.example.pokeme.service.FirebasePokesService
@@ -29,6 +30,7 @@ interface AppComponent {
     fun inject(registerFragment: RegisterFragment)
     fun inject(friendListFragment: FriendListFragment)
     fun inject(pokesFragment: PokesFragment)
+    fun inject(profileFragment: ProfileFragment)
     fun inject(profileSettingsFragment: ProfileSettingsFragment)
 
     fun inject(firebasePokesService: FirebasePokesService)
