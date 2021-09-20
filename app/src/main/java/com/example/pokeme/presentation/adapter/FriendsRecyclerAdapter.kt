@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.compose.ui.layout.Layout
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ class FriendsRecyclerAdapter(private var friends: ArrayList<Account>) :
  RecyclerView.Adapter<FriendsRecyclerAdapter.ViewHolder>(){
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val friendNameView: TextView = view.findViewById(R.id.friendUsername)
+        val friendImageView: ImageView = view.findViewById(R.id.userImage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,6 +27,7 @@ class FriendsRecyclerAdapter(private var friends: ArrayList<Account>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val current = friends[position]
         holder.friendNameView.text = current.email
+        holder.friendImageView.setImageResource(R.drawable.account_image_placeholder)
     }
 
     override fun getItemCount(): Int {
