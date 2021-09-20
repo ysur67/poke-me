@@ -7,8 +7,8 @@ import io.reactivex.rxjava3.core.Observable
 import kotlin.collections.HashMap
 
 interface AccountRepository {
-    fun getOrCreateAccount(account: Account) : Observable<Result<Account>>
+    suspend fun getOrCreateAccount(account: Account) : Result<Account>
     fun updateDocument(id: String, fields: HashMap<String, String>)
-    fun getFriends(account: Account) : Observable<Result<List<Account>>>
+    suspend fun getFriends(account: Account) : Result<List<Account>>
     fun save(account: Account)
 }
