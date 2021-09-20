@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.core.Observable
 
 interface AuthRepository {
     val currentAccount: Account?
-    fun register(email: String, password: String) : Observable<Result<Account>>
-    fun login(email: String, password: String) : Observable<Result<Account>>
+    suspend fun register(email: String, password: String) : Result<Account>
+    suspend fun login(email: String, password: String) : Result<Account>
     fun logout()
 }
