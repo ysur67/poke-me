@@ -3,18 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/friendListFragment"
-        android:title="@string/friends_item_title"
-        android:icon="@drawable/person_outline"
-        android:orderInCategory="1"/>
-    <item
         android:id="@+id/pokesFragment"
         android:title="@string/pokes_menu_item"
         android:icon="@drawable/comment"
-        android:orderInCategory="2"/>
+        android:orderInCategory="1"/>
     <item
         android:id="@+id/profileFragment"
         android:title="@string/profile_menu_item"
         android:icon="@drawable/gear"
-        android:orderInCategory="3"/>
+        android:orderInCategory="2"/>
 </menu>

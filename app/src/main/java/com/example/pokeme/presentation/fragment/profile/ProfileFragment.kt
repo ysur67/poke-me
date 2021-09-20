@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.pokeme.App
@@ -22,7 +23,7 @@ import javax.inject.Inject
 class ProfileFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val accountViewModel: AccountViewModel by viewModels { viewModelFactory }
+    private val accountViewModel: AccountViewModel by activityViewModels { viewModelFactory }
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
@@ -43,7 +44,9 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navController = findNavController()
-        binding.accountUsername.text = accountViewModel.account.value?.username ?: "No data"
+        accountViewModel.account.observe(viewLifecycleOwner, {
+            binding.accountUsername.text = it?.username ?: "No data"
+        })
         binding.changeAccountInfoButton.setOnClickListener {
             navController.navigate(R.id.action_profileFragment_to_profileSettingsFragment)
         }

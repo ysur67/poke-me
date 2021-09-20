@@ -40,8 +40,7 @@ class FriendListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFriendListBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,11 +53,16 @@ class FriendListFragment : Fragment() {
         friendsRecyclerAdapter = FriendsRecyclerAdapter(ArrayList())
         binding.recyclerView.adapter = friendsRecyclerAdapter
 
-        accountViewModel.updateFriends()
+//        accountViewModel.updateFriends()
         accountViewModel.friends.observe(viewLifecycleOwner, {
             if (it == null) return@observe
             friendsRecyclerAdapter.add(it)
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     companion object {

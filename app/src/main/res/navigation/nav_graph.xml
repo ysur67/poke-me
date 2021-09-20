@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/friendListFragment">
+    app:startDestination="@id/profileFragment">
     <fragment
         android:id="@+id/profileSettingsFragment"
         android:name="com.example.pokeme.presentation.fragment.profile.ProfileSettingsFragment"
@@ -14,11 +14,6 @@
         android:name="com.example.pokeme.presentation.fragment.PokesFragment"
         android:label="fragment_pokes"
         tools:layout="@layout/fragment_pokes" />
-    <fragment
-        android:id="@+id/friendListFragment"
-        android:name="com.example.pokeme.presentation.fragment.profile.FriendListFragment"
-        android:label="fragment_friend_list"
-        tools:layout="@layout/fragment_friend_list" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.pokeme.presentation.fragment.profile.ProfileFragment"
